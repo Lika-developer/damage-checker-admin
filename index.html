@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>POWDY · Admin — Train</title>
+<title>POWDY ยท Admin โ€” Train</title>
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
@@ -86,7 +86,7 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 /* ===== MAIN PANEL + POWDY THEME ===== */
 .cmain{
   display:flex;flex-direction:column;min-width:0;overflow:hidden;
-  /* Powdy theme override — re-routes --crl-red to purple inside content */
+  /* Powdy theme override โ€” re-routes --crl-red to purple inside content */
   --crl-red:var(--pwd-purple);
   --crl-red-deep:var(--pwd-purple-deep);
   --crl-red-bright:var(--pwd-purple-bright);
@@ -127,7 +127,7 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
   background:url("liff_admin_BG/Add_Rule_Success.jpg") center/cover no-repeat #f0fdf4;
 }
 
-/* Auth card — frosted glass panel on top of Start.jpg */
+/* Auth card โ€” frosted glass panel on top of Start.jpg */
 .auth-card{
   background:rgba(255,255,255,0.88);
   backdrop-filter:blur(18px);
@@ -343,7 +343,7 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 #preview-img-notice{background:#E8F5E9;border-radius:4px;padding:10px 14px;font-size:var(--text-body);color:#2E7D32;margin-bottom:12px;display:none;}
 #preview-followup-notice{background:#FFF3E0;border-radius:4px;padding:10px 14px;font-size:var(--text-body);color:#E65100;margin-bottom:12px;display:none;}
 
-/* Success — frosted glass card on top of Add_Rule_Success.jpg */
+/* Success โ€” frosted glass card on top of Add_Rule_Success.jpg */
 .success-screen{
   text-align:center;
   padding:48px 44px;
@@ -392,28 +392,28 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 <div class="admin-bar">
   <div class="abl">
     <span class="pulse-dot"></span>
-    <span>Admin — สอนงานน้อง Powdy</span>
+    <span>Admin โ€” เธชเธญเธเธเธฒเธเธเนเธญเธ Powdy</span>
   </div>
-  <div class="abr" id="admin-bar-right">Admin Mode · Browser</div>
+  <div class="abr" id="admin-bar-right">Admin Mode ยท Browser</div>
 </div>
 
 <!-- Auth: Checking (full-screen overlay with Start.jpg background) -->
 <div id="screen-checking" class="screen active">
   <div class="auth-card">
     <div class="auth-spinner"></div>
-    <div class="auth-title">กำลังตรวจสอบสิทธิ์...</div>
+    <div class="auth-title">เธเธณเธฅเธฑเธเธ•เธฃเธงเธเธชเธญเธเธชเธดเธ—เธเธดเน...</div>
     <div class="auth-sub">LINE Admin Portal</div>
   </div>
 </div>
 
 <!-- Auth: Access Denied (full-screen overlay) -->
 <div id="screen-denied" class="screen">
-  <div class="denied-icon">🔒</div>
-  <div class="denied-title">ไม่มีสิทธิ์เข้าใช้งาน</div>
-  <div class="denied-sub" id="denied-sub">คุณไม่ได้รับอนุญาตให้เข้าใช้ Admin Portal<br>กรุณาติดต่อผู้ดูแลระบบเพื่อขอสิทธิ์</div>
-  <div class="userid-label">LINE User ID ของคุณ (แจ้ง Admin เพื่อขอสิทธิ์):</div>
-  <div class="userid-box" id="denied-userid">กำลังโหลด...</div>
-  <button class="pbtn pbtn--primary" style="margin-top:8px" onclick="copyUserId()">📋 คัดลอก User ID</button>
+  <div class="denied-icon">๐”’</div>
+  <div class="denied-title">เนเธกเนเธกเธตเธชเธดเธ—เธเธดเนเน€เธเนเธฒเนเธเนเธเธฒเธ</div>
+  <div class="denied-sub" id="denied-sub">เธเธธเธ“เนเธกเนเนเธ”เนเธฃเธฑเธเธญเธเธธเธเธฒเธ•เนเธซเนเน€เธเนเธฒเนเธเน Admin Portal<br>เธเธฃเธธเธ“เธฒเธ•เธดเธ”เธ•เนเธญเธเธนเนเธ”เธนเนเธฅเธฃเธฐเธเธเน€เธเธทเนเธญเธเธญเธชเธดเธ—เธเธดเน</div>
+  <div class="userid-label">LINE User ID เธเธญเธเธเธธเธ“ (เนเธเนเธ Admin เน€เธเธทเนเธญเธเธญเธชเธดเธ—เธเธดเน):</div>
+  <div class="userid-box" id="denied-userid">เธเธณเธฅเธฑเธเนเธซเธฅเธ”...</div>
+  <button class="pbtn pbtn--primary" style="margin-top:8px" onclick="copyUserId()">๐“ เธเธฑเธ”เธฅเธญเธ User ID</button>
 </div>
 
 <!-- App Shell -->
@@ -427,7 +427,7 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
       <div class="csb-brand-fallback">CRL</div>
       <div class="csb-brand-meta">
         <span class="csb-module">POWDY</span>
-        <span class="csb-tag">Admin · Train</span>
+        <span class="csb-tag">Admin ยท Train</span>
       </div>
     </div>
 
@@ -435,13 +435,13 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
     <div class="csb-nav">
       <button class="csb-item active" id="sb-item-train">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg>
-        สอนงาน Powdy
-        <span class="sb-count" id="sb-session-count">·</span>
+        เธชเธญเธเธเธฒเธ Powdy
+        <span class="sb-count" id="sb-session-count">ยท</span>
       </button>
       <button class="csb-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-        คลังกฎ
-        <span class="sb-count" id="sb-kb-count">—</span>
+        เธเธฅเธฑเธเธเธ
+        <span class="sb-count" id="sb-kb-count">โ€”</span>
       </button>
       <button class="csb-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18l-2 9H5z"/><path d="M3 9V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4"/></svg>
@@ -458,18 +458,18 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
       </button>
       <button class="csb-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
-        รายงาน
+        เธฃเธฒเธขเธเธฒเธ
       </button>
     </div>
 
     <div class="csb-mascot">
       <div class="mav">
         <img src="design_handoff_powdy_admin/assets/powdy-mascot-circle.png" alt="Powdy"
-             onerror="this.parentElement.innerHTML='🐾'">
+             onerror="this.parentElement.innerHTML='๐พ'">
       </div>
       <div>
-        <div class="mname">น้อง Powdy</div>
-        <div class="mstatus" id="mascot-status">เรียนรู้แล้ว — กฎ</div>
+        <div class="mname">เธเนเธญเธ Powdy</div>
+        <div class="mstatus" id="mascot-status">เน€เธฃเธตเธขเธเธฃเธนเนเนเธฅเนเธง โ€” เธเธ</div>
       </div>
     </div>
   </aside>
@@ -484,10 +484,10 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
         <span class="sep">/</span>
         <span>Train</span>
         <span class="sep">/</span>
-        <span class="now" id="breadcrumb-now">สอนงานน้อง Powdy</span>
+        <span class="now" id="breadcrumb-now">เธชเธญเธเธเธฒเธเธเนเธญเธ Powdy</span>
       </nav>
       <div class="topbar-right">
-        <span class="env-chip"><span class="edot"></span> CRL · PROD</span>
+        <span class="env-chip"><span class="edot"></span> CRL ยท PROD</span>
         <div class="user-av" id="user-avatar">AD</div>
       </div>
     </div>
@@ -499,14 +499,14 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
       <div id="screen-home" class="screen">
         <div class="cph">
           <div>
-            <div class="cph-chip">หน้าเริ่มต้น</div>
-            <h1>เริ่มต้นสอนงานน้อง Powdy</h1>
-            <div class="sub">เลือกวิธีสร้างกฎตัดสินภาพสินค้า — อัปโหลด Excel หรือสร้างใหม่จากศูนย์</div>
+            <div class="cph-chip">เธซเธเนเธฒเน€เธฃเธดเนเธกเธ•เนเธ</div>
+            <h1>เน€เธฃเธดเนเธกเธ•เนเธเธชเธญเธเธเธฒเธเธเนเธญเธ Powdy</h1>
+            <div class="sub">เน€เธฅเธทเธญเธเธงเธดเธเธตเธชเธฃเนเธฒเธเธเธเธ•เธฑเธ”เธชเธดเธเธ เธฒเธเธชเธดเธเธเนเธฒ โ€” เธญเธฑเธเนเธซเธฅเธ” Excel เธซเธฃเธทเธญเธชเธฃเนเธฒเธเนเธซเธกเนเธเธฒเธเธจเธนเธเธขเน</div>
           </div>
           <div>
             <button class="pbtn pbtn--outline" onclick="downloadTemplate()">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
-              ดาวน์โหลด Template (.xlsx)
+              เธ”เธฒเธงเธเนเนเธซเธฅเธ” Template (.xlsx)
             </button>
           </div>
         </div>
@@ -517,11 +517,11 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13l4 4M12 13l-4 4"/></svg>
             </div>
             <div style="flex:1">
-              <h3>นำเข้าจาก Excel</h3>
-              <p>อัปโหลด .xlsx ที่มีรูปแบบ Decision_Rules — แนบรูปเพิ่มภายหลังได้</p>
+              <h3>เธเธณเน€เธเนเธฒเธเธฒเธ Excel</h3>
+              <p>เธญเธฑเธเนเธซเธฅเธ” .xlsx เธ—เธตเนเธกเธตเธฃเธนเธเนเธเธ Decision_Rules โ€” เนเธเธเธฃเธนเธเน€เธเธดเนเธกเธ เธฒเธขเธซเธฅเธฑเธเนเธ”เน</p>
               <div style="margin-top:14px;display:flex;gap:8px;align-items:center">
-                <span class="ctile-chip ctile-chip--rec">แนะนำ</span>
-                <span class="ctile-mono">· อัปโหลดได้ครั้งละ 1 ไฟล์</span>
+                <span class="ctile-chip ctile-chip--rec">เนเธเธฐเธเธณ</span>
+                <span class="ctile-mono">ยท เธญเธฑเธเนเธซเธฅเธ”เนเธ”เนเธเธฃเธฑเนเธเธฅเธฐ 1 เนเธเธฅเน</span>
               </div>
             </div>
             <span class="ctile-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
@@ -533,8 +533,8 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg>
             </div>
             <div style="flex:1">
-              <h3>เพิ่มกฎใหม่ด้วยตัวเอง</h3>
-              <p>เริ่มจากแถวเปล่า — แนบรูปและให้ AI ช่วยสร้างกฎ</p>
+              <h3>เน€เธเธดเนเธกเธเธเนเธซเธกเนเธ”เนเธงเธขเธ•เธฑเธงเน€เธญเธ</h3>
+              <p>เน€เธฃเธดเนเธกเธเธฒเธเนเธ–เธงเน€เธเธฅเนเธฒ โ€” เนเธเธเธฃเธนเธเนเธฅเธฐเนเธซเน AI เธเนเธงเธขเธชเธฃเนเธฒเธเธเธ</p>
               <div style="margin-top:14px">
                 <span class="ctile-chip ctile-chip--ai">
                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.5 5.5l2 2M16.5 16.5l2 2M5.5 18.5l2-2M16.5 7.5l2-2"/></svg>
@@ -549,37 +549,37 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
         <!-- Draft Banner -->
         <div id="draft-restore-banner" class="cbanner" style="display:none">
           <span class="cbadge">DRAFT</span>
-          <div class="cmsg">พบ <strong id="draft-count">0</strong> กฎ ที่ยังไม่ได้บันทึก จากเซสชันก่อนหน้า</div>
+          <div class="cmsg">เธเธ <strong id="draft-count">0</strong> เธเธ เธ—เธตเนเธขเธฑเธเนเธกเนเนเธ”เนเธเธฑเธเธ—เธถเธ เธเธฒเธเน€เธเธชเธเธฑเธเธเนเธญเธเธซเธเนเธฒ</div>
           <div style="display:flex;gap:8px;flex-shrink:0">
             <button onclick="restoreDraft()" class="pbtn pbtn--primary pbtn--sm">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-15-6.7L3 13"/></svg>
-              กู้คืน Draft
+              เธเธนเนเธเธทเธ Draft
             </button>
-            <button onclick="discardDraft()" class="pbtn pbtn--ghost pbtn--sm">ทิ้ง</button>
+            <button onclick="discardDraft()" class="pbtn pbtn--ghost pbtn--sm">เธ—เธดเนเธ</button>
           </div>
         </div>
 
         <!-- Stat Strip -->
         <div class="cstats">
           <div class="cstat">
-            <div class="k">กฎทั้งหมด</div>
-            <div class="v" id="stat-total">—</div>
-            <div class="d" id="stat-total-d">กำลังโหลด...</div>
+            <div class="k">เธเธเธ—เธฑเนเธเธซเธกเธ”</div>
+            <div class="v" id="stat-total">โ€”</div>
+            <div class="d" id="stat-total-d">เธเธณเธฅเธฑเธเนเธซเธฅเธ”...</div>
           </div>
           <div class="cstat">
-            <div class="k">ภาพที่ตัดสินแล้ว</div>
-            <div class="v">—</div>
-            <div class="d">—</div>
+            <div class="k">เธ เธฒเธเธ—เธตเนเธ•เธฑเธ”เธชเธดเธเนเธฅเนเธง</div>
+            <div class="v">โ€”</div>
+            <div class="d">โ€”</div>
           </div>
           <div class="cstat">
             <div class="k">REJECT rate</div>
-            <div class="v">—<span class="unit">%</span></div>
-            <div class="d down">—</div>
+            <div class="v">โ€”<span class="unit">%</span></div>
+            <div class="d down">โ€”</div>
           </div>
           <div class="cstat">
             <div class="k">UNCERTAIN</div>
-            <div class="v">—<span class="unit">%</span></div>
-            <div class="d">—</div>
+            <div class="v">โ€”<span class="unit">%</span></div>
+            <div class="d">โ€”</div>
           </div>
         </div>
 
@@ -591,10 +591,10 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
         <div class="editor-toolbar">
           <button class="pbtn pbtn--ghost pbtn--sm" onclick="showScreen('home')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-            กลับ
+            เธเธฅเธฑเธ
           </button>
-          <span class="etitle">แก้ไขกฎ</span>
-          <span class="count-chip" id="rules-count">0 กฎ</span>
+          <span class="etitle">เนเธเนเนเธเธเธ</span>
+          <span class="count-chip" id="rules-count">0 เธเธ</span>
           <div class="etoolbar-spacer"></div>
           <button class="pbtn pbtn--ghost pbtn--sm" id="btn-analyze-all" onclick="analyzeAll()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
@@ -602,11 +602,11 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
           </button>
           <button class="pbtn pbtn--outline pbtn--sm" onclick="addEmptyRule()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-            เพิ่มกฎ
+            เน€เธเธดเนเธกเธเธ
           </button>
           <button class="pbtn pbtn--primary pbtn--sm" onclick="goToPreview()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
-            Preview &amp; Save →
+            Preview &amp; Save โ’
           </button>
         </div>
 
@@ -615,24 +615,24 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
             <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
           </div>
           <div class="progress-label">
-            <span id="progress-label-text">🤖 กำลังวิเคราะห์...</span>
+            <span id="progress-label-text">๐ค– เธเธณเธฅเธฑเธเธงเธดเน€เธเธฃเธฒเธฐเธซเน...</span>
             <span id="progress-count-text">0 / 0</span>
           </div>
         </div>
 
         <div id="conflict-panel" class="conflict-panel"></div>
 
-        <div class="scroll-hint">← เลื่อนซ้ายขวาเพื่อดูทุก column →</div>
+        <div class="scroll-hint">โ เน€เธฅเธทเนเธญเธเธเนเธฒเธขเธเธงเธฒเน€เธเธทเนเธญเธ”เธนเธ—เธธเธ column โ’</div>
         <div class="rules-table-wrap">
           <table class="rules-table">
             <thead>
               <tr>
                 <th class="col-num">#</th>
-                <th class="col-img">📷 รูปอ้างอิง</th>
+                <th class="col-img">๐“ท เธฃเธนเธเธญเนเธฒเธเธญเธดเธ</th>
                 <th class="col-id">Rule ID</th>
                 <th class="col-dec">Decision</th>
-                <th class="col-vs">👁 สัญญาณที่มองเห็น <span style="color:var(--pwd-orange);font-weight:400">*</span></th>
-                <th class="col-rt">💬 ข้อความตอบ (AI สร้าง — แก้ได้)</th>
+                <th class="col-vs">๐‘ เธชเธฑเธเธเธฒเธ“เธ—เธตเนเธกเธญเธเน€เธซเนเธ <span style="color:var(--pwd-orange);font-weight:400">*</span></th>
+                <th class="col-rt">๐’ฌ เธเนเธญเธเธงเธฒเธกเธ•เธญเธ (AI เธชเธฃเนเธฒเธ โ€” เนเธเนเนเธ”เน)</th>
                 <th class="col-ai">AI</th>
                 <th class="col-act">Actions</th>
               </tr>
@@ -645,10 +645,10 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
       <!-- Screen: Preview -->
       <div id="screen-preview" class="screen">
         <div class="card">
-          <div class="card-title">👁️ ตรวจสอบก่อนบันทึก</div>
-          <p style="font-size:14px;color:var(--n600);margin-bottom:14px">กฎเหล่านี้จะถูกเพิ่มเข้า Decision_Rules และน้อง Powdy จะเรียนรู้ทันที</p>
-          <div id="preview-img-notice">📷 <span id="preview-img-count">0</span> กฎมีรูปอ้างอิง — จะถูก upload ไป Google Drive อัตโนมัติ</div>
-          <div id="preview-followup-notice">❓ <span id="preview-followup-count">0</span> กฎมีการถามต่อ (follow_up) — น้อง Powdy จะส่งคำถาม choice ก่อนตัดสินใจ</div>
+          <div class="card-title">๐‘๏ธ เธ•เธฃเธงเธเธชเธญเธเธเนเธญเธเธเธฑเธเธ—เธถเธ</div>
+          <p style="font-size:14px;color:var(--n600);margin-bottom:14px">เธเธเน€เธซเธฅเนเธฒเธเธตเนเธเธฐเธ–เธนเธเน€เธเธดเนเธกเน€เธเนเธฒ Decision_Rules เนเธฅเธฐเธเนเธญเธ Powdy เธเธฐเน€เธฃเธตเธขเธเธฃเธนเนเธ—เธฑเธเธ—เธต</p>
+          <div id="preview-img-notice">๐“ท <span id="preview-img-count">0</span> เธเธเธกเธตเธฃเธนเธเธญเนเธฒเธเธญเธดเธ โ€” เธเธฐเธ–เธนเธ upload เนเธ Google Drive เธญเธฑเธ•เนเธเธกเธฑเธ•เธด</div>
+          <div id="preview-followup-notice">โ“ <span id="preview-followup-count">0</span> เธเธเธกเธตเธเธฒเธฃเธ–เธฒเธกเธ•เนเธญ (follow_up) โ€” เธเนเธญเธ Powdy เธเธฐเธชเนเธเธเธณเธ–เธฒเธก choice เธเนเธญเธเธ•เธฑเธ”เธชเธดเธเนเธ</div>
           <div style="overflow-x:auto">
             <table class="preview-table">
               <thead><tr>
@@ -659,23 +659,23 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
           </div>
         </div>
         <div class="footer-bar">
-          <button class="btn-secondary" onclick="showScreen('edit')">← แก้ไขเพิ่มเติม</button>
-          <button class="btn-primary" onclick="saveRules()" id="btn-save">✅ บันทึก <span id="save-count">0</span> กฎ เข้าระบบ</button>
+          <button class="btn-secondary" onclick="showScreen('edit')">โ เนเธเนเนเธเน€เธเธดเนเธกเน€เธ•เธดเธก</button>
+          <button class="btn-primary" onclick="saveRules()" id="btn-save">โ… เธเธฑเธเธ—เธถเธ <span id="save-count">0</span> เธเธ เน€เธเนเธฒเธฃเธฐเธเธ</button>
         </div>
       </div>
 
       <!-- Screen: Success -->
       <div id="screen-success" class="screen">
         <div class="success-screen">
-          <div class="success-icon">✅</div>
-          <div class="success-title">บันทึกเรียบร้อย!</div>
-          <div class="success-sub">เพิ่ม <strong id="saved-count">0</strong> กฎเข้า Decision_Rules แล้ว</div>
-          <div class="kb-badge">🐾 น้อง Powdy กำลังเรียนรู้กฎใหม่...</div>
+          <div class="success-icon">โ…</div>
+          <div class="success-title">เธเธฑเธเธ—เธถเธเน€เธฃเธตเธขเธเธฃเนเธญเธข!</div>
+          <div class="success-sub">เน€เธเธดเนเธก <strong id="saved-count">0</strong> เธเธเน€เธเนเธฒ Decision_Rules เนเธฅเนเธง</div>
+          <div class="kb-badge">๐พ เธเนเธญเธ Powdy เธเธณเธฅเธฑเธเน€เธฃเธตเธขเธเธฃเธนเนเธเธเนเธซเธกเน...</div>
           <div id="success-img-info" style="display:none;margin-top:8px">
-            <div class="img-badge">📷 <span id="saved-img-count">0</span> รูปถูก upload ไป Google Drive แล้ว</div>
+            <div class="img-badge">๐“ท <span id="saved-img-count">0</span> เธฃเธนเธเธ–เธนเธ upload เนเธ Google Drive เนเธฅเนเธง</div>
           </div>
           <div style="margin-top:24px">
-            <button class="btn-primary" onclick="resetApp()" style="max-width:240px;margin:0 auto;display:block">🔄 สอนน้องรอบใหม่</button>
+            <button class="btn-primary" onclick="resetApp()" style="max-width:240px;margin:0 auto;display:block">๐” เธชเธญเธเธเนเธญเธเธฃเธญเธเนเธซเธกเน</button>
           </div>
         </div>
       </div>
@@ -687,7 +687,7 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 <!-- Loading Overlay -->
 <div class="loading-overlay" id="loading">
   <div class="spinner"></div>
-  <div class="loading-text" id="loading-text">กำลังประมวลผล...</div>
+  <div class="loading-text" id="loading-text">เธเธณเธฅเธฑเธเธเธฃเธฐเธกเธงเธฅเธเธฅ...</div>
   <div class="loading-step-dot" id="loading-dots" style="display:none">
     <div class="step-dot" id="dot-0"></div>
     <div class="step-dot" id="dot-1"></div>
@@ -701,7 +701,7 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 
 <script>
 // ===== CONFIG =====
-const ADMIN_LIFF_ID    = 'YOUR_ADMIN_LIFF_ID';
+const ADMIN_LIFF_ID    = '2010147903-QfN2EaLr';
 const N8N_BASE         = 'https://sotheeratach.app.n8n.cloud/webhook';
 const ANALYZE_URL      = N8N_BASE + '/liff-rule-analyze';
 const SAVE_URL         = N8N_BASE + '/liff-rule-save';
@@ -734,7 +734,7 @@ let savedImageCount = 0;
     const profile = await liff.getProfile();
     adminName = profile.displayName;
     adminLineId = profile.userId;
-    document.getElementById('admin-name').textContent = '👤 ' + adminName;
+    document.getElementById('admin-name').textContent = '๐‘ค ' + adminName;
 
     try {
       const vResp = await fetch(VERIFY_URL, {
@@ -749,7 +749,7 @@ let savedImageCount = 0;
       console.error('Auth verify failed:', verifyErr.message);
       document.getElementById('denied-userid').textContent = adminLineId;
       document.getElementById('denied-sub').innerHTML =
-        'ไม่สามารถตรวจสอบสิทธิ์ได้ในขณะนี้<br>กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ';
+        'เนเธกเนเธชเธฒเธกเธฒเธฃเธ–เธ•เธฃเธงเธเธชเธญเธเธชเธดเธ—เธเธดเนเนเธ”เนเนเธเธเธ“เธฐเธเธตเน<br>เธเธฃเธธเธ“เธฒเธฅเธญเธเนเธซเธกเนเธญเธตเธเธเธฃเธฑเนเธ เธซเธฃเธทเธญเธ•เธดเธ”เธ•เนเธญเธเธนเนเธ”เธนเนเธฅเธฃเธฐเธเธ';
       showScreen('denied');
     }
   } catch(e) {
@@ -762,23 +762,23 @@ let savedImageCount = 0;
 async function fetchExistingRuleIds() {
   const el = document.getElementById('existing-ids-status');
   try {
-    if (el) el.textContent = '⏳ กำลังโหลด Rule IDs จาก Sheet...';
+    if (el) el.textContent = 'โณ เธเธณเธฅเธฑเธเนเธซเธฅเธ” Rule IDs เธเธฒเธ Sheet...';
     const resp = await fetch(GET_RULE_IDS_URL, { method: 'GET' });
     if (resp.ok) {
       const data = await resp.json();
       existingRuleIds = data.ruleIds || [];
-      if (el) el.textContent = `✅ โหลด ${existingRuleIds.length} Rule IDs แล้ว (ป้องกัน ID ซ้ำ)`;
+      if (el) el.textContent = `โ… เนเธซเธฅเธ” ${existingRuleIds.length} Rule IDs เนเธฅเนเธง (เธเนเธญเธเธเธฑเธ ID เธเนเธณ)`;
       setTimeout(() => { if (el) el.textContent = ''; }, 3000);
     }
   } catch(e) {
     console.log('Could not fetch existing rule IDs:', e.message);
-    if (el) el.textContent = '⚠️ ไม่สามารถโหลด Rule IDs (จะ generate แบบ local)';
+    if (el) el.textContent = 'โ ๏ธ เนเธกเนเธชเธฒเธกเธฒเธฃเธ–เนเธซเธฅเธ” Rule IDs (เธเธฐ generate เนเธเธ local)';
     setTimeout(() => { if (el) el.textContent = ''; }, 3000);
   }
 }
 
 function copyUserId() {
-  navigator.clipboard.writeText(adminLineId).then(() => showToast('✅ คัดลอก User ID แล้ว'))
+  navigator.clipboard.writeText(adminLineId).then(() => showToast('โ… เธเธฑเธ”เธฅเธญเธ User ID เนเธฅเนเธง'))
     .catch(() => showToast('LINE User ID: ' + adminLineId));
 }
 
@@ -812,13 +812,13 @@ function restoreDraft() {
   document.getElementById('draft-restore-banner').style.display = 'none';
   renderRules();
   showScreen('edit');
-  showToast('↩ กู้คืน ' + rules.length + ' กฎจาก Draft แล้ว');
+  showToast('โฉ เธเธนเนเธเธทเธ ' + rules.length + ' เธเธเธเธฒเธ Draft เนเธฅเนเธง');
 }
 
 function discardDraft() {
   clearDraft();
   document.getElementById('draft-restore-banner').style.display = 'none';
-  showToast('🗑 ลบ Draft แล้ว');
+  showToast('๐—‘ เธฅเธ Draft เนเธฅเนเธง');
 }
 
 // ===== HOME SCREEN =====
@@ -831,7 +831,7 @@ function startFromScratch() {
 function handleExcelImport(input) {
   const file = input.files[0];
   if (!file) return;
-  showLoading('กำลังอ่านไฟล์ Excel...');
+  showLoading('เธเธณเธฅเธฑเธเธญเนเธฒเธเนเธเธฅเน Excel...');
   const reader = new FileReader();
   reader.onload = (ev) => {
     try {
@@ -839,20 +839,20 @@ function handleExcelImport(input) {
       const wb = XLSX.read(data, { type: 'array' });
       const ws = wb.Sheets[wb.SheetNames[0]];
       const json = XLSX.utils.sheet_to_json(ws);
-      if (json.length === 0) { hideLoading(); showToast('❌ ไม่พบข้อมูลใน Excel'); return; }
+      if (json.length === 0) { hideLoading(); showToast('โ เนเธกเนเธเธเธเนเธญเธกเธนเธฅเนเธ Excel'); return; }
       rules = json.map(row => {
         const base = emptyRule();
-        const decMap = {'❌ ไม่รับคืน':'REJECT','✅ รับคืน':'ACCEPT','⚠️ ขอรูปเพิ่ม':'UNCERTAIN'};
+        const decMap = {'โ เนเธกเนเธฃเธฑเธเธเธทเธ':'REJECT','โ… เธฃเธฑเธเธเธทเธ':'ACCEPT','โ ๏ธ เธเธญเธฃเธนเธเน€เธเธดเนเธก':'UNCERTAIN'};
         if (row.Decision && decMap[row.Decision]) row.Decision = decMap[row.Decision];
         return { ...base, ...row, Last_Updated: today(), _imageData: null, _expanded: false };
       });
       renderRules();
       hideLoading();
       showScreen('edit');
-      showToast('✅ นำเข้า ' + rules.length + ' กฎ');
+      showToast('โ… เธเธณเน€เธเนเธฒ ' + rules.length + ' เธเธ');
     } catch(err) {
       hideLoading();
-      showToast('❌ อ่านไฟล์ไม่ได้: ' + err.message);
+      showToast('โ เธญเนเธฒเธเนเธเธฅเนเนเธกเนเนเธ”เน: ' + err.message);
     }
   };
   reader.readAsArrayBuffer(file);
@@ -862,20 +862,20 @@ function handleExcelImport(input) {
 function downloadTemplate() {
   const headers = [...RULE_COLUMNS.filter(c => !['Ref_Image_URL','Last_Updated'].includes(c))];
   const example = [
-    'PKG-001','High','REJECT','บรรจุภัณฑ์เสียหาย','กล่องฉีกขาดรุนแรง','ทุกประเภท',
-    'รอยฉีกขาดขนาดใหญ่ > 5 ซม.','ฉีกขาดมากกว่า 5 ซม.','High',
-    'ปฏิเสธรับคืน เนื่องจากบรรจุภัณฑ์ฉีกขาดรุนแรง',
-    'รอยฉีกขาดเกิดจากการขนส่งหรือไม่?','อย่าสับสนกับรอยยับเล็กน้อย',
+    'PKG-001','High','REJECT','เธเธฃเธฃเธเธธเธ เธฑเธ“เธ‘เนเน€เธชเธตเธขเธซเธฒเธข','เธเธฅเนเธญเธเธเธตเธเธเธฒเธ”เธฃเธธเธเนเธฃเธ','เธ—เธธเธเธเธฃเธฐเน€เธ เธ—',
+    'เธฃเธญเธขเธเธตเธเธเธฒเธ”เธเธเธฒเธ”เนเธซเธเน > 5 เธเธก.','เธเธตเธเธเธฒเธ”เธกเธฒเธเธเธงเนเธฒ 5 เธเธก.','High',
+    'เธเธเธดเน€เธชเธเธฃเธฑเธเธเธทเธ เน€เธเธทเนเธญเธเธเธฒเธเธเธฃเธฃเธเธธเธ เธฑเธ“เธ‘เนเธเธตเธเธเธฒเธ”เธฃเธธเธเนเธฃเธ',
+    'เธฃเธญเธขเธเธตเธเธเธฒเธ”เน€เธเธดเธ”เธเธฒเธเธเธฒเธฃเธเธเธชเนเธเธซเธฃเธทเธญเนเธกเน?','เธญเธขเนเธฒเธชเธฑเธเธชเธเธเธฑเธเธฃเธญเธขเธขเธฑเธเน€เธฅเนเธเธเนเธญเธข',
     'direct','',
-    'น้อยกว่า 5 ซม.','ACCEPT',
-    'มากกว่า 5 ซม.','REJECT',
+    'เธเนเธญเธขเธเธงเนเธฒ 5 เธเธก.','ACCEPT',
+    'เธกเธฒเธเธเธงเนเธฒ 5 เธเธก.','REJECT',
     '','UNCERTAIN','',''];
   const wb = XLSX.utils.book_new();
   const ws = XLSX.utils.aoa_to_sheet([headers, example]);
   ws['!cols'] = headers.map(() => ({ wch: 20 }));
   XLSX.utils.book_append_sheet(wb, ws, 'Decision_Rules');
   XLSX.writeFile(wb, 'decision_rules_template.xlsx');
-  showToast('✅ ดาวน์โหลด Template แล้ว');
+  showToast('โ… เธ”เธฒเธงเธเนเนเธซเธฅเธ” Template เนเธฅเนเธง');
 }
 
 // ===== RULE MANAGEMENT =====
@@ -900,7 +900,7 @@ function emptyRule() {
   return {
     Rule_ID: '', Priority: 'Medium', Decision: 'REJECT',
     Category_TH: '', Rule_Name_TH: '',
-    Product_Scope: 'ทุกประเภท', Visual_Signal_TH: '', Threshold_Note: '',
+    Product_Scope: 'เธ—เธธเธเธเธฃเธฐเน€เธ เธ—', Visual_Signal_TH: '', Threshold_Note: '',
     Confidence_Required: 'High',
     Response_Template_TH: '', Ask_More_TH: '',
     Common_Confusion_TH: '',
@@ -927,13 +927,13 @@ function addEmptyRule() {
 }
 
 function deleteRule(idx) {
-  if (rules.length === 1) { showToast('⚠️ ต้องมีอย่างน้อย 1 กฎ'); return; }
-  const ruleId = rules[idx].Rule_ID || ('แถว ' + (idx + 1));
-  if (!confirm('ลบกฎ "' + ruleId + '" ใช่ไหม?\n\nการกระทำนี้ไม่สามารถย้อนกลับได้')) return;
+  if (rules.length === 1) { showToast('โ ๏ธ เธ•เนเธญเธเธกเธตเธญเธขเนเธฒเธเธเนเธญเธข 1 เธเธ'); return; }
+  const ruleId = rules[idx].Rule_ID || ('เนเธ–เธง ' + (idx + 1));
+  if (!confirm('เธฅเธเธเธ "' + ruleId + '" เนเธเนเนเธซเธก?\n\nเธเธฒเธฃเธเธฃเธฐเธ—เธณเธเธตเนเนเธกเนเธชเธฒเธกเธฒเธฃเธ–เธขเนเธญเธเธเธฅเธฑเธเนเธ”เน')) return;
   rules.splice(idx, 1);
   saveDraft();
   renderRules();
-  showToast('🗑 ลบกฎแล้ว');
+  showToast('๐—‘ เธฅเธเธเธเนเธฅเนเธง');
 }
 
 function updateRuleField(idx, field, value) {
@@ -943,8 +943,8 @@ function updateRuleField(idx, field, value) {
     const dupInSheet   = existingRuleIds.includes(trimmed);
     const inputEl = document.querySelector(`#rule-row-${idx} .tbl-id`);
     if (dupInSession || dupInSheet) {
-      if (inputEl) { inputEl.style.borderColor = '#DC1F26'; inputEl.title = '⚠️ Rule ID นี้ซ้ำกับที่มีอยู่แล้ว!'; }
-      showToast(`⚠️ Rule ID "${trimmed}" ซ้ำ — กรุณาใช้ ID อื่น`);
+      if (inputEl) { inputEl.style.borderColor = '#DC1F26'; inputEl.title = 'โ ๏ธ Rule ID เธเธตเนเธเนเธณเธเธฑเธเธ—เธตเนเธกเธตเธญเธขเธนเนเนเธฅเนเธง!'; }
+      showToast(`โ ๏ธ Rule ID "${trimmed}" เธเนเธณ โ€” เธเธฃเธธเธ“เธฒเนเธเน ID เธญเธทเนเธ`);
       return;
     } else {
       if (inputEl) { inputEl.style.borderColor = ''; inputEl.title = ''; }
@@ -964,12 +964,12 @@ function updateAskType(idx, value) {
   const decCell = document.getElementById('dec-cell-' + idx);
   if (decCell) {
     if (value === 'follow_up') {
-      decCell.innerHTML = '<span style="color:#E65100;font-size:12px;font-weight:700">ขึ้นกับตัวเลือก</span>';
+      decCell.innerHTML = '<span style="color:#E65100;font-size:12px;font-weight:700">เธเธถเนเธเธเธฑเธเธ•เธฑเธงเน€เธฅเธทเธญเธ</span>';
     } else {
       decCell.innerHTML = `<select class="tbl-sel" onchange="updateRuleField(${idx},'Decision',this.value)">
-        <option value="REJECT"    ${rules[idx].Decision==='REJECT'   ?'selected':''}>❌ REJECT</option>
-        <option value="ACCEPT"    ${rules[idx].Decision==='ACCEPT'   ?'selected':''}>✅ ACCEPT</option>
-        <option value="UNCERTAIN" ${rules[idx].Decision==='UNCERTAIN'?'selected':''}>⚠️ UNCERTAIN</option>
+        <option value="REJECT"    ${rules[idx].Decision==='REJECT'   ?'selected':''}>โ REJECT</option>
+        <option value="ACCEPT"    ${rules[idx].Decision==='ACCEPT'   ?'selected':''}>โ… ACCEPT</option>
+        <option value="UNCERTAIN" ${rules[idx].Decision==='UNCERTAIN'?'selected':''}>โ ๏ธ UNCERTAIN</option>
       </select>`;
     }
   }
@@ -988,13 +988,13 @@ function buildExpandedFields(idx) {
   const rule = rules[idx];
   const ai = (f) => (rule._aiFields && rule._aiFields.includes(f)) ? ' ai-filled' : '';
   const mainFields = [
-    { key:'Category_TH',         label:'หมวดหมู่ความเสียหาย',               type:'input' },
-    { key:'Rule_Name_TH',        label:'ชื่อกฎ',                             type:'input' },
-    { key:'Priority',            label:'ลำดับความสำคัญ',                     type:'select', opts:['High','Medium','Low'] },
-    { key:'Product_Scope',       label:'ขอบเขตสินค้า',                       type:'input' },
-    { key:'Threshold_Note',      label:'เกณฑ์การตัดสิน (เพิ่มเติม)',          type:'textarea' },
-    { key:'Ask_More_TH',         label:'คำถามขอรูปเพิ่ม (สำหรับ UNCERTAIN)',  type:'textarea' },
-    { key:'Common_Confusion_TH', label:'ข้อควรระวัง / กฎที่ใกล้เคียง',        type:'textarea' },
+    { key:'Category_TH',         label:'เธซเธกเธงเธ”เธซเธกเธนเนเธเธงเธฒเธกเน€เธชเธตเธขเธซเธฒเธข',               type:'input' },
+    { key:'Rule_Name_TH',        label:'เธเธทเนเธญเธเธ',                             type:'input' },
+    { key:'Priority',            label:'เธฅเธณเธ”เธฑเธเธเธงเธฒเธกเธชเธณเธเธฑเธ',                     type:'select', opts:['High','Medium','Low'] },
+    { key:'Product_Scope',       label:'เธเธญเธเน€เธเธ•เธชเธดเธเธเนเธฒ',                       type:'input' },
+    { key:'Threshold_Note',      label:'เน€เธเธ“เธ‘เนเธเธฒเธฃเธ•เธฑเธ”เธชเธดเธ (เน€เธเธดเนเธกเน€เธ•เธดเธก)',          type:'textarea' },
+    { key:'Ask_More_TH',         label:'เธเธณเธ–เธฒเธกเธเธญเธฃเธนเธเน€เธเธดเนเธก (เธชเธณเธซเธฃเธฑเธ UNCERTAIN)',  type:'textarea' },
+    { key:'Common_Confusion_TH', label:'เธเนเธญเธเธงเธฃเธฃเธฐเธงเธฑเธ / เธเธเธ—เธตเนเนเธเธฅเนเน€เธเธตเธขเธ',        type:'textarea' },
   ];
   const fhtml = mainFields.map(f => {
     const val = rule[f.key] || '';
@@ -1010,12 +1010,12 @@ function buildExpandedFields(idx) {
   }).join('');
 
   const askTypeHtml = `<div class="exp-field" style="grid-column:span 2">
-    <label>🔀 รูปแบบการตัดสินใจ (Ask Type)</label>
+    <label>๐”€ เธฃเธนเธเนเธเธเธเธฒเธฃเธ•เธฑเธ”เธชเธดเธเนเธ (Ask Type)</label>
     <select onchange="updateAskType(${idx}, this.value)">
-      <option value="direct"         ${rule.Ask_Type==='direct'        ?'selected':''}>▶ Direct — ตัดสินใจได้เลยจากภาพ (Accept/Reject)</option>
-      <option value="follow_up"      ${rule.Ask_Type==='follow_up'     ?'selected':''}>❓ Follow-up — ถามต่อด้วย Choice ก่อนตัดสินใจ</option>
-      <option value="request_image"  ${rule.Ask_Type==='request_image' ?'selected':''}>📷 Request Image — ขอรูปเพิ่ม / รูปมุมอื่น</option>
-      <option value="escalate_admin" ${rule.Ask_Type==='escalate_admin'?'selected':''}>⚠️ Escalate Admin — ส่งให้ Admin ตรวจสอบ</option>
+      <option value="direct"         ${rule.Ask_Type==='direct'        ?'selected':''}>โ–ถ Direct โ€” เธ•เธฑเธ”เธชเธดเธเนเธเนเธ”เนเน€เธฅเธขเธเธฒเธเธ เธฒเธ (Accept/Reject)</option>
+      <option value="follow_up"      ${rule.Ask_Type==='follow_up'     ?'selected':''}>โ“ Follow-up โ€” เธ–เธฒเธกเธ•เนเธญเธ”เนเธงเธข Choice เธเนเธญเธเธ•เธฑเธ”เธชเธดเธเนเธ</option>
+      <option value="request_image"  ${rule.Ask_Type==='request_image' ?'selected':''}>๐“ท Request Image โ€” เธเธญเธฃเธนเธเน€เธเธดเนเธก / เธฃเธนเธเธกเธธเธกเธญเธทเนเธ</option>
+      <option value="escalate_admin" ${rule.Ask_Type==='escalate_admin'?'selected':''}>โ ๏ธ Escalate Admin โ€” เธชเนเธเนเธซเน Admin เธ•เธฃเธงเธเธชเธญเธ</option>
     </select>
   </div>`;
 
@@ -1025,16 +1025,16 @@ function buildExpandedFields(idx) {
   const fillWidth = Math.max(0, sMax - sMin) + '%';
 
   const severityHtml = `<div class="exp-field">
-    <label>📦 ประเภทสินค้า (product_category)</label>
+    <label>๐“ฆ เธเธฃเธฐเน€เธ เธ—เธชเธดเธเธเนเธฒ (product_category)</label>
     <select onchange="updateRuleField(${idx},'product_category',this.value)">
-      <option value="general"        ${(rule.product_category||'general')==='general'        ?'selected':''}>🔹 General — ทั่วไป (D1:25% D2:30% D3:30% D4:15%)</option>
-      <option value="small_app"      ${(rule.product_category||'general')==='small_app'      ?'selected':''}>📱 Small App / Gadget (D1:20% D2:20% D3:30% D4:30%)</option>
-      <option value="large_home_app" ${(rule.product_category||'general')==='large_home_app' ?'selected':''}>🏠 Large Home Appliance (D1:15% D2:40% D3:30% D4:15%)</option>
+      <option value="general"        ${(rule.product_category||'general')==='general'        ?'selected':''}>๐”น General โ€” เธ—เธฑเนเธงเนเธ (D1:25% D2:30% D3:30% D4:15%)</option>
+      <option value="small_app"      ${(rule.product_category||'general')==='small_app'      ?'selected':''}>๐“ฑ Small App / Gadget (D1:20% D2:20% D3:30% D4:30%)</option>
+      <option value="large_home_app" ${(rule.product_category||'general')==='large_home_app' ?'selected':''}>๐  Large Home Appliance (D1:15% D2:40% D3:30% D4:15%)</option>
     </select>
   </div>
   <div class="exp-field" style="grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;gap:12px">
     <div>
-      <label>🔻 Severity ต่ำสุด</label>
+      <label>๐”ป Severity เธ•เนเธณเธชเธธเธ”</label>
       <div class="severity-input">
         <input type="range" min="0" max="100" value="${sMin}"
           oninput="updateSeverityMin(${idx},+this.value)">
@@ -1042,7 +1042,7 @@ function buildExpandedFields(idx) {
       </div>
     </div>
     <div>
-      <label>🔺 Severity สูงสุด</label>
+      <label>๐”บ Severity เธชเธนเธเธชเธธเธ”</label>
       <div class="severity-input">
         <input type="range" min="0" max="100" value="${sMax}"
           oninput="updateSeverityMax(${idx},+this.value)">
@@ -1051,58 +1051,58 @@ function buildExpandedFields(idx) {
     </div>
   </div>
   <div class="exp-field" style="grid-column:span 2">
-    <label>SEVERITY แสดงผล</label>
+    <label>SEVERITY เนเธชเธ”เธเธเธฅ</label>
     <div class="severity-bar">
       <div class="severity-fill" id="sev-fill-${idx}" style="left:${fillLeft};width:${fillWidth}"></div>
     </div>
     <div class="severity-legend">
       <span>0</span>
-      <span id="sev-label-${idx}">${sMin} ── ${sMax}</span>
+      <span id="sev-label-${idx}">${sMin} โ”€โ”€ ${sMax}</span>
       <span>100</span>
     </div>
   </div>`;
 
   const followupDisplay = rule.Ask_Type === 'follow_up' ? 'grid' : 'none';
   const followupHtml = `<div id="followup-section-${idx}" class="followup-section" style="display:${followupDisplay};grid-column:span 2">
-    <div class="followup-section-title" style="grid-column:span 2">❓ ตั้งค่า Follow-up Question</div>
+    <div class="followup-section-title" style="grid-column:span 2">โ“ เธ•เธฑเนเธเธเนเธฒ Follow-up Question</div>
     <div class="exp-field" style="grid-column:span 2">
-      <label>ข้อความถาม (auto-gen จากตัวเลือก — แก้ได้)</label>
-      <textarea id="fq-ta-${idx}" style="min-height:70px" placeholder="กรอกตัวเลือกด้านล่างแล้วจะ generate ให้อัตโนมัติ" oninput="updateRuleField(${idx},'Followup_Question_TH',this.value)">${e(rule.Followup_Question_TH||'')}</textarea>
+      <label>เธเนเธญเธเธงเธฒเธกเธ–เธฒเธก (auto-gen เธเธฒเธเธ•เธฑเธงเน€เธฅเธทเธญเธ โ€” เนเธเนเนเธ”เน)</label>
+      <textarea id="fq-ta-${idx}" style="min-height:70px" placeholder="เธเธฃเธญเธเธ•เธฑเธงเน€เธฅเธทเธญเธเธ”เนเธฒเธเธฅเนเธฒเธเนเธฅเนเธงเธเธฐ generate เนเธซเนเธญเธฑเธ•เนเธเธกเธฑเธ•เธด" oninput="updateRuleField(${idx},'Followup_Question_TH',this.value)">${e(rule.Followup_Question_TH||'')}</textarea>
     </div>
     <div class="exp-field">
-      <label>ตัวเลือก 1 — ป้ายชื่อ</label>
-      <input type="text" value="${e(rule.Opt1_Label||'')}" placeholder="เช่น กล่องบุบน้อยกว่า 2 cm" oninput="updateRuleField(${idx},'Opt1_Label',this.value);autoGenFollowupQuestion(${idx})">
+      <label>เธ•เธฑเธงเน€เธฅเธทเธญเธ 1 โ€” เธเนเธฒเธขเธเธทเนเธญ</label>
+      <input type="text" value="${e(rule.Opt1_Label||'')}" placeholder="เน€เธเนเธ เธเธฅเนเธญเธเธเธธเธเธเนเธญเธขเธเธงเนเธฒ 2 cm" oninput="updateRuleField(${idx},'Opt1_Label',this.value);autoGenFollowupQuestion(${idx})">
     </div>
     <div class="exp-field">
-      <label>ตัวเลือก 1 → ผลลัพธ์</label>
+      <label>เธ•เธฑเธงเน€เธฅเธทเธญเธ 1 โ’ เธเธฅเธฅเธฑเธเธเน</label>
       <select onchange="updateRuleField(${idx},'Opt1_Decision',this.value)">
-        <option value="ACCEPT"    ${(rule.Opt1_Decision||'ACCEPT')  ==='ACCEPT'   ?'selected':''}>✅ ACCEPT — รับคืน</option>
-        <option value="REJECT"    ${(rule.Opt1_Decision||'ACCEPT')  ==='REJECT'   ?'selected':''}>❌ REJECT — ปฏิเสธ</option>
-        <option value="UNCERTAIN" ${(rule.Opt1_Decision||'ACCEPT')  ==='UNCERTAIN'?'selected':''}>⚠️ UNCERTAIN — รอ Admin</option>
+        <option value="ACCEPT"    ${(rule.Opt1_Decision||'ACCEPT')  ==='ACCEPT'   ?'selected':''}>โ… ACCEPT โ€” เธฃเธฑเธเธเธทเธ</option>
+        <option value="REJECT"    ${(rule.Opt1_Decision||'ACCEPT')  ==='REJECT'   ?'selected':''}>โ REJECT โ€” เธเธเธดเน€เธชเธ</option>
+        <option value="UNCERTAIN" ${(rule.Opt1_Decision||'ACCEPT')  ==='UNCERTAIN'?'selected':''}>โ ๏ธ UNCERTAIN โ€” เธฃเธญ Admin</option>
       </select>
     </div>
     <div class="exp-field">
-      <label>ตัวเลือก 2 — ป้ายชื่อ</label>
-      <input type="text" value="${e(rule.Opt2_Label||'')}" placeholder="เช่น กล่องบุบมากกว่า 2 cm" oninput="updateRuleField(${idx},'Opt2_Label',this.value);autoGenFollowupQuestion(${idx})">
+      <label>เธ•เธฑเธงเน€เธฅเธทเธญเธ 2 โ€” เธเนเธฒเธขเธเธทเนเธญ</label>
+      <input type="text" value="${e(rule.Opt2_Label||'')}" placeholder="เน€เธเนเธ เธเธฅเนเธญเธเธเธธเธเธกเธฒเธเธเธงเนเธฒ 2 cm" oninput="updateRuleField(${idx},'Opt2_Label',this.value);autoGenFollowupQuestion(${idx})">
     </div>
     <div class="exp-field">
-      <label>ตัวเลือก 2 → ผลลัพธ์</label>
+      <label>เธ•เธฑเธงเน€เธฅเธทเธญเธ 2 โ’ เธเธฅเธฅเธฑเธเธเน</label>
       <select onchange="updateRuleField(${idx},'Opt2_Decision',this.value)">
-        <option value="ACCEPT"    ${(rule.Opt2_Decision||'REJECT')  ==='ACCEPT'   ?'selected':''}>✅ ACCEPT — รับคืน</option>
-        <option value="REJECT"    ${(rule.Opt2_Decision||'REJECT')  ==='REJECT'   ?'selected':''}>❌ REJECT — ปฏิเสธ</option>
-        <option value="UNCERTAIN" ${(rule.Opt2_Decision||'REJECT')  ==='UNCERTAIN'?'selected':''}>⚠️ UNCERTAIN — รอ Admin</option>
+        <option value="ACCEPT"    ${(rule.Opt2_Decision||'REJECT')  ==='ACCEPT'   ?'selected':''}>โ… ACCEPT โ€” เธฃเธฑเธเธเธทเธ</option>
+        <option value="REJECT"    ${(rule.Opt2_Decision||'REJECT')  ==='REJECT'   ?'selected':''}>โ REJECT โ€” เธเธเธดเน€เธชเธ</option>
+        <option value="UNCERTAIN" ${(rule.Opt2_Decision||'REJECT')  ==='UNCERTAIN'?'selected':''}>โ ๏ธ UNCERTAIN โ€” เธฃเธญ Admin</option>
       </select>
     </div>
     <div class="exp-field">
-      <label>ตัวเลือก 3 — ป้ายชื่อ (ไม่บังคับ)</label>
-      <input type="text" value="${e(rule.Opt3_Label||'')}" placeholder="เว้นว่างถ้าไม่มีตัวเลือกที่ 3" oninput="updateRuleField(${idx},'Opt3_Label',this.value);autoGenFollowupQuestion(${idx})">
+      <label>เธ•เธฑเธงเน€เธฅเธทเธญเธ 3 โ€” เธเนเธฒเธขเธเธทเนเธญ (เนเธกเนเธเธฑเธเธเธฑเธ)</label>
+      <input type="text" value="${e(rule.Opt3_Label||'')}" placeholder="เน€เธงเนเธเธงเนเธฒเธเธ–เนเธฒเนเธกเนเธกเธตเธ•เธฑเธงเน€เธฅเธทเธญเธเธ—เธตเน 3" oninput="updateRuleField(${idx},'Opt3_Label',this.value);autoGenFollowupQuestion(${idx})">
     </div>
     <div class="exp-field">
-      <label>ตัวเลือก 3 → ผลลัพธ์</label>
+      <label>เธ•เธฑเธงเน€เธฅเธทเธญเธ 3 โ’ เธเธฅเธฅเธฑเธเธเน</label>
       <select onchange="updateRuleField(${idx},'Opt3_Decision',this.value)">
-        <option value="ACCEPT"    ${(rule.Opt3_Decision||'UNCERTAIN')==='ACCEPT'   ?'selected':''}>✅ ACCEPT — รับคืน</option>
-        <option value="REJECT"    ${(rule.Opt3_Decision||'UNCERTAIN')==='REJECT'   ?'selected':''}>❌ REJECT — ปฏิเสธ</option>
-        <option value="UNCERTAIN" ${(rule.Opt3_Decision||'UNCERTAIN')==='UNCERTAIN'?'selected':''}>⚠️ UNCERTAIN — รอ Admin</option>
+        <option value="ACCEPT"    ${(rule.Opt3_Decision||'UNCERTAIN')==='ACCEPT'   ?'selected':''}>โ… ACCEPT โ€” เธฃเธฑเธเธเธทเธ</option>
+        <option value="REJECT"    ${(rule.Opt3_Decision||'UNCERTAIN')==='REJECT'   ?'selected':''}>โ REJECT โ€” เธเธเธดเน€เธชเธ</option>
+        <option value="UNCERTAIN" ${(rule.Opt3_Decision||'UNCERTAIN')==='UNCERTAIN'?'selected':''}>โ ๏ธ UNCERTAIN โ€” เธฃเธญ Admin</option>
       </select>
     </div>
   </div>`;
@@ -1111,12 +1111,12 @@ function buildExpandedFields(idx) {
 }
 
 function renderRules() {
-  document.getElementById('rules-count').textContent = rules.length + ' กฎ';
+  document.getElementById('rules-count').textContent = rules.length + ' เธเธ';
   const dc = {REJECT:'d-reject', ACCEPT:'d-accept', UNCERTAIN:'d-uncertain'};
   const atBadge = {
-    follow_up:      '<span class="ask-type-badge followup">❓ follow-up</span>',
-    request_image:  '<span class="ask-type-badge photo">📷 req image</span>',
-    escalate_admin: '<span class="ask-type-badge" style="background:#EDE7F6;color:#4527A0">⚠️ admin</span>'
+    follow_up:      '<span class="ask-type-badge followup">โ“ follow-up</span>',
+    request_image:  '<span class="ask-type-badge photo">๐“ท req image</span>',
+    escalate_admin: '<span class="ask-type-badge" style="background:#EDE7F6;color:#4527A0">โ ๏ธ admin</span>'
   };
   const rows = rules.map((rule, idx) => {
     const vsAi = (rule._aiFields && rule._aiFields.includes('Visual_Signal_TH')) ? ' ai-filled' : '';
@@ -1125,10 +1125,10 @@ function renderRules() {
     const imgHtml = rule._imageData
       ? `<div class="img-drop has-img" onclick="removeRowImage(${idx})">
            <img src="${rule._imageData}" alt="">
-           <button class="remove-img" onclick="removeRowImage(${idx});event.stopPropagation()">✕</button>
+           <button class="remove-img" onclick="removeRowImage(${idx});event.stopPropagation()">โ•</button>
          </div>
-         <div class="img-upload-badge">📤 จะ upload</div>`
-      : `<div class="img-drop" onclick="document.getElementById('img-input-${idx}').click()" title="คลิกเพื่อแนบรูปอ้างอิง">+</div>`;
+         <div class="img-upload-badge">๐“ค เธเธฐ upload</div>`
+      : `<div class="img-drop" onclick="document.getElementById('img-input-${idx}').click()" title="เธเธฅเธดเธเน€เธเธทเนเธญเนเธเธเธฃเธนเธเธญเนเธฒเธเธญเธดเธ">+</div>`;
 
     let confHtml = '';
     if (rule._aiStatus === 'done' && rule._confidence !== null && rule._confidence !== undefined) {
@@ -1142,9 +1142,9 @@ function renderRules() {
       </div>`;
     }
 
-    const aiBadge = rule._aiStatus === 'done'    ? `<span class="ai-badge done">✅ AI</span>${confHtml}`
-                  : rule._aiStatus === 'working' ? '<span class="ai-badge working">⏳ AI</span>'
-                  : rule._aiStatus === 'error'   ? '<span class="ai-badge error">❌ AI</span>' : '';
+    const aiBadge = rule._aiStatus === 'done'    ? `<span class="ai-badge done">โ… AI</span>${confHtml}`
+                  : rule._aiStatus === 'working' ? '<span class="ai-badge working">โณ AI</span>'
+                  : rule._aiStatus === 'error'   ? '<span class="ai-badge error">โ AI</span>' : '';
 
     const hasImgClass = rule._imageData ? 'has-img' : '';
     const atBadgeHtml = atBadge[rule.Ask_Type] || '';
@@ -1161,21 +1161,21 @@ function renderRules() {
       </td>
       <td id="dec-cell-${idx}">
         ${rule.Ask_Type === 'follow_up'
-          ? '<span style="color:#E65100;font-size:12px;font-weight:700">ขึ้นกับตัวเลือก</span>'
+          ? '<span style="color:#E65100;font-size:12px;font-weight:700">เธเธถเนเธเธเธฑเธเธ•เธฑเธงเน€เธฅเธทเธญเธ</span>'
           : `<select class="tbl-sel" onchange="updateRuleField(${idx},'Decision',this.value)">
-              <option value="REJECT"    ${rule.Decision==='REJECT'   ?'selected':''}>❌ REJECT</option>
-              <option value="ACCEPT"    ${rule.Decision==='ACCEPT'   ?'selected':''}>✅ ACCEPT</option>
-              <option value="UNCERTAIN" ${rule.Decision==='UNCERTAIN'?'selected':''}>⚠️ UNCERTAIN</option>
+              <option value="REJECT"    ${rule.Decision==='REJECT'   ?'selected':''}>โ REJECT</option>
+              <option value="ACCEPT"    ${rule.Decision==='ACCEPT'   ?'selected':''}>โ… ACCEPT</option>
+              <option value="UNCERTAIN" ${rule.Decision==='UNCERTAIN'?'selected':''}>โ ๏ธ UNCERTAIN</option>
             </select>`
         }
       </td>
-      <td><textarea class="tbl-ta${vsAi}" rows="3" placeholder="อธิบายสิ่งที่มองเห็นในรูป..." oninput="updateRuleField(${idx},'Visual_Signal_TH',this.value)">${e(rule.Visual_Signal_TH)}</textarea></td>
-      <td><textarea class="tbl-ta${rtAi}" rows="3" placeholder="กด 🤖 เพื่อให้ AI เขียนให้..." oninput="updateRuleField(${idx},'Response_Template_TH',this.value)">${e(rule.Response_Template_TH)}</textarea></td>
+      <td><textarea class="tbl-ta${vsAi}" rows="3" placeholder="เธญเธเธดเธเธฒเธขเธชเธดเนเธเธ—เธตเนเธกเธญเธเน€เธซเนเธเนเธเธฃเธนเธ..." oninput="updateRuleField(${idx},'Visual_Signal_TH',this.value)">${e(rule.Visual_Signal_TH)}</textarea></td>
+      <td><textarea class="tbl-ta${rtAi}" rows="3" placeholder="เธเธ” ๐ค– เน€เธเธทเนเธญเนเธซเน AI เน€เธเธตเธขเธเนเธซเน..." oninput="updateRuleField(${idx},'Response_Template_TH',this.value)">${e(rule.Response_Template_TH)}</textarea></td>
       <td style="text-align:center">${aiBadge}</td>
       <td>
-        <button class="btn-row-ai ${hasImgClass}" onclick="analyzeRow(${idx})" id="btn-ai-${idx}">✨ AI</button>
-        <button class="btn-row-exp" onclick="toggleExpand(${idx})">${rule._expanded ? '▲ ย่อ' : '▼ เพิ่มเติม'}</button>
-        <button class="btn-row-del" onclick="deleteRule(${idx})">🗑 ลบ</button>
+        <button class="btn-row-ai ${hasImgClass}" onclick="analyzeRow(${idx})" id="btn-ai-${idx}">โจ AI</button>
+        <button class="btn-row-exp" onclick="toggleExpand(${idx})">${rule._expanded ? 'โ–ฒ เธขเนเธญ' : 'โ–ผ เน€เธเธดเนเธกเน€เธ•เธดเธก'}</button>
+        <button class="btn-row-del" onclick="deleteRule(${idx})">๐—‘ เธฅเธ</button>
       </td>
     </tr>`;
 
@@ -1188,7 +1188,7 @@ function renderRules() {
 
   document.getElementById('rules-tbody').innerHTML = rows;
   const btn = document.getElementById('btn-analyze-all');
-  if (btn) btn.textContent = `✨ Analyze All (${rules.length})`;
+  if (btn) btn.textContent = `โจ Analyze All (${rules.length})`;
   saveDraft();
   renderConflictPanel();
 }
@@ -1215,7 +1215,7 @@ function handleRowImageUpload(idx, input) {
       rules[idx]._imageData = canvas.toDataURL('image/jpeg', 0.82);
       rules[idx].Ref_Image_Filename = (rules[idx].Rule_ID || 'rule_' + idx) + '_ref.jpg';
       renderRules();
-      showToast('📷 แนบรูปแล้ว — จะ upload ไป Drive ตอน Save');
+      showToast('๐“ท เนเธเธเธฃเธนเธเนเธฅเนเธง โ€” เธเธฐ upload เนเธ Drive เธ•เธญเธ Save');
     };
     img.src = ev.target.result;
   };
@@ -1232,11 +1232,11 @@ function removeRowImage(idx) {
 // ===== ANALYZE ROW =====
 async function analyzeRow(idx) {
   const rule = rules[idx];
-  const desc = [rule.Visual_Signal_TH, rule.Rule_Name_TH, rule.Category_TH].filter(Boolean).join(' — ');
-  if (!desc && !rule._imageData) { showToast('⚠️ กรอกข้อมูลหรือแนบรูปก่อนวิเคราะห์'); return; }
+  const desc = [rule.Visual_Signal_TH, rule.Rule_Name_TH, rule.Category_TH].filter(Boolean).join(' โ€” ');
+  if (!desc && !rule._imageData) { showToast('โ ๏ธ เธเธฃเธญเธเธเนเธญเธกเธนเธฅเธซเธฃเธทเธญเนเธเธเธฃเธนเธเธเนเธญเธเธงเธดเน€เธเธฃเธฒเธฐเธซเน'); return; }
 
   const btn = document.getElementById('btn-ai-' + idx);
-  if (btn) { btn.disabled = true; btn.textContent = '⏳ AI...'; }
+  if (btn) { btn.disabled = true; btn.textContent = 'โณ AI...'; }
   rules[idx]._aiStatus = 'working';
   rules[idx]._confidence = null;
 
@@ -1273,7 +1273,7 @@ async function analyzeRow(idx) {
       if (allExistingIds.includes(rules[idx].Rule_ID)) {
         const oldId = rules[idx].Rule_ID;
         rules[idx].Rule_ID = generateRuleId(rules[idx].Decision);
-        showToast('⚠️ AI ส่ง Rule ID "' + oldId + '" ซ้ำ — สร้างใหม่: ' + rules[idx].Rule_ID);
+        showToast('โ ๏ธ AI เธชเนเธ Rule ID "' + oldId + '" เธเนเธณ โ€” เธชเธฃเนเธฒเธเนเธซเธกเน: ' + rules[idx].Rule_ID);
       }
     }
 
@@ -1285,12 +1285,12 @@ async function analyzeRow(idx) {
     }
     rules[idx]._expanded = aiFields.some(f => !['Visual_Signal_TH','Response_Template_TH','Rule_ID','Decision'].includes(f));
     renderRules();
-    showToast('✅ แถว ' + (idx+1) + ' — AI สร้างกฎแล้ว');
+    showToast('โ… เนเธ–เธง ' + (idx+1) + ' โ€” AI เธชเธฃเนเธฒเธเธเธเนเธฅเนเธง');
     return true;
   } catch(err) {
     rules[idx]._aiStatus = 'error';
     renderRules();
-    showToast('❌ แถว ' + (idx+1) + ': ' + err.message);
+    showToast('โ เนเธ–เธง ' + (idx+1) + ': ' + err.message);
     return false;
   }
 }
@@ -1308,25 +1308,25 @@ async function analyzeAll() {
   for (let i = 0; i < rules.length; i++) {
     const pct = Math.round((i / rules.length) * 100);
     fill.style.width = pct + '%';
-    btn.textContent = `⏳ ${i+1}/${rules.length}...`;
-    labelText.textContent = `🤖 วิเคราะห์แถว ${i+1} จาก ${rules.length}`;
+    btn.textContent = `โณ ${i+1}/${rules.length}...`;
+    labelText.textContent = `๐ค– เธงเธดเน€เธเธฃเธฒเธฐเธซเนเนเธ–เธง ${i+1} เธเธฒเธ ${rules.length}`;
     countText.textContent = `${pct}%`;
     await analyzeRow(i);
     await new Promise(r => setTimeout(r, 350));
   }
   fill.style.width = '100%';
-  labelText.textContent = '✅ วิเคราะห์เสร็จสิ้น';
+  labelText.textContent = 'โ… เธงเธดเน€เธเธฃเธฒเธฐเธซเนเน€เธชเธฃเนเธเธชเธดเนเธ';
   countText.textContent = '100%';
   btn.disabled = false;
-  btn.textContent = `✨ Analyze All (${rules.length})`;
+  btn.textContent = `โจ Analyze All (${rules.length})`;
   setTimeout(() => { wrap.style.display = 'none'; fill.style.width = '0%'; }, 2000);
-  showToast('✅ วิเคราะห์ครบทุกแถวแล้ว');
+  showToast('โ… เธงเธดเน€เธเธฃเธฒเธฐเธซเนเธเธฃเธเธ—เธธเธเนเธ–เธงเนเธฅเนเธง');
 }
 
 // ===== PREVIEW =====
 function goToPreview() {
   const invalid = rules.filter(r => !r.Visual_Signal_TH);
-  if (invalid.length) { showToast('⚠️ กรุณากรอก "สัญญาณที่มองเห็น" ทุกแถว'); return; }
+  if (invalid.length) { showToast('โ ๏ธ เธเธฃเธธเธ“เธฒเธเธฃเธญเธ "เธชเธฑเธเธเธฒเธ“เธ—เธตเนเธกเธญเธเน€เธซเนเธ" เธ—เธธเธเนเธ–เธง'); return; }
   rules.forEach(rule => { if (!rule.Rule_ID) rule.Rule_ID = generateRuleId(rule.Decision); });
 
   const imgCount = rules.filter(r => r._imageData).length;
@@ -1342,18 +1342,18 @@ function goToPreview() {
 
   const dc = {REJECT:'db-reject', ACCEPT:'db-accept', UNCERTAIN:'db-uncertain'};
   const atLabel = {
-    direct:'▶ Direct',
-    follow_up:'❓ Follow-up',
-    request_image:'📷 Request Image',
-    escalate_admin:'⚠️ Escalate Admin'
+    direct:'โ–ถ Direct',
+    follow_up:'โ“ Follow-up',
+    request_image:'๐“ท Request Image',
+    escalate_admin:'โ ๏ธ Escalate Admin'
   };
   document.getElementById('preview-container').innerHTML = rules.map((rule) => `
     <tr>
       <td><code style="font-size:12px;font-weight:700;font-family:var(--font-mono)">${e(rule.Rule_ID)}</code></td>
-      <td><span class="${dc[rule.Decision]||'db-uncertain'}">${rule.Decision}</span>${rule._imageData?' 📷':''}</td>
+      <td><span class="${dc[rule.Decision]||'db-uncertain'}">${rule.Decision}</span>${rule._imageData?' ๐“ท':''}</td>
       <td style="font-size:12px;color:var(--n600)">${atLabel[rule.Ask_Type]||rule.Ask_Type||'direct'}</td>
-      <td style="font-size:12px">${e(rule.Visual_Signal_TH||'—')}</td>
-      <td style="font-size:12px">${e(rule.Response_Template_TH||'—')}</td>
+      <td style="font-size:12px">${e(rule.Visual_Signal_TH||'โ€”')}</td>
+      <td style="font-size:12px">${e(rule.Response_Template_TH||'โ€”')}</td>
     </tr>`).join('');
   document.getElementById('save-count').textContent = rules.length;
   showScreen('preview');
@@ -1375,8 +1375,8 @@ async function saveRules() {
   savedImageCount = images.length;
 
   const steps = images.length > 0
-    ? ['💾 กำลังบันทึกกฎเข้าระบบ...', '📷 กำลัง Upload รูปไป Google Drive...', '🐾 น้อง Powdy กำลังเรียนรู้...', '✅ เกือบเสร็จแล้ว...']
-    : ['💾 กำลังบันทึกกฎเข้าระบบ...', '🐾 น้อง Powdy กำลังเรียนรู้...', '✅ เกือบเสร็จแล้ว...'];
+    ? ['๐’พ เธเธณเธฅเธฑเธเธเธฑเธเธ—เธถเธเธเธเน€เธเนเธฒเธฃเธฐเธเธ...', '๐“ท เธเธณเธฅเธฑเธ Upload เธฃเธนเธเนเธ Google Drive...', '๐พ เธเนเธญเธ Powdy เธเธณเธฅเธฑเธเน€เธฃเธตเธขเธเธฃเธนเน...', 'โ… เน€เธเธทเธญเธเน€เธชเธฃเนเธเนเธฅเนเธง...']
+    : ['๐’พ เธเธณเธฅเธฑเธเธเธฑเธเธ—เธถเธเธเธเน€เธเนเธฒเธฃเธฐเธเธ...', '๐พ เธเนเธญเธ Powdy เธเธณเธฅเธฑเธเน€เธฃเธตเธขเธเธฃเธนเน...', 'โ… เน€เธเธทเธญเธเน€เธชเธฃเนเธเนเธฅเนเธง...'];
 
   let stepIdx = 0;
   showSaveProgress(steps[0], stepIdx, steps.length);
@@ -1424,7 +1424,7 @@ async function saveRules() {
     clearInterval(stepTimer);
     hideLoading();
     btn.disabled = false;
-    showToast('❌ บันทึกไม่สำเร็จ: ' + err.message);
+    showToast('โ เธเธฑเธเธ—เธถเธเนเธกเนเธชเธณเน€เธฃเนเธ: ' + err.message);
   }
 }
 
@@ -1452,7 +1452,7 @@ function autoGenFollowupQuestion(idx) {
   const rule = rules[idx];
   const opts = [rule.Opt1_Label, rule.Opt2_Label, rule.Opt3_Label].filter(Boolean);
   if (opts.length === 0) return;
-  const lines = ['กรุณาตรวจสอบและตอบโดยพิมพ์หมายเลข:'];
+  const lines = ['เธเธฃเธธเธ“เธฒเธ•เธฃเธงเธเธชเธญเธเนเธฅเธฐเธ•เธญเธเนเธ”เธขเธเธดเธกเธเนเธซเธกเธฒเธขเน€เธฅเธ:'];
   opts.forEach((label, i) => lines.push((i + 1) + '. ' + label));
   const generated = lines.join('\n');
   rules[idx].Followup_Question_TH = generated;
@@ -1473,7 +1473,7 @@ function updateSeverityMin(idx, value) {
     fillEl.style.left = v + '%';
     fillEl.style.width = Math.max(0, sMax - v) + '%';
   }
-  if (labelEl) labelEl.textContent = v + ' ── ' + (rules[idx].severity_max ?? 100);
+  if (labelEl) labelEl.textContent = v + ' โ”€โ”€ ' + (rules[idx].severity_max ?? 100);
 }
 
 function updateSeverityMax(idx, value) {
@@ -1488,13 +1488,13 @@ function updateSeverityMax(idx, value) {
     fillEl.style.left = sMin + '%';
     fillEl.style.width = Math.max(0, v - sMin) + '%';
   }
-  if (labelEl) labelEl.textContent = (rules[idx].severity_min ?? 0) + ' ── ' + v;
+  if (labelEl) labelEl.textContent = (rules[idx].severity_min ?? 0) + ' โ”€โ”€ ' + v;
 }
 
 // ===== CONFLICT DETECTOR =====
 function detectConflicts() {
   const tokenize = (str) => (str || '').toLowerCase()
-    .replace(/[,./\-–()\[\]]/g, ' ')
+    .replace(/[,./\-โ€“()\[\]]/g, ' ')
     .split(/\s+/)
     .filter(t => t.length > 2);
 
@@ -1533,20 +1533,20 @@ function renderConflictPanel() {
   const decLabel = { REJECT:'REJECT', ACCEPT:'ACCEPT', UNCERTAIN:'UNCERTAIN', FOLLOW_UP:'FOLLOW_UP', ESCALATE_ADMIN:'ESCALATE' };
   const items = conflicts.map(c => {
     const a = rules[c.idxA], b = rules[c.idxB];
-    const idA = a.Rule_ID || `แถว ${c.idxA + 1}`;
-    const idB = b.Rule_ID || `แถว ${c.idxB + 1}`;
+    const idA = a.Rule_ID || `เนเธ–เธง ${c.idxA + 1}`;
+    const idB = b.Rule_ID || `เนเธ–เธง ${c.idxB + 1}`;
     const decA = a.Ask_Type === 'follow_up' ? 'FOLLOW_UP' : a.Decision;
     const decB = b.Ask_Type === 'follow_up' ? 'FOLLOW_UP' : b.Decision;
     const chips = c.shared.slice(0, 6).map(kw => `<span class="conflict-kw-chip">${e(kw)}</span>`).join('');
     return `<div class="conflict-item">
       <div><span class="conflict-rule-pair">${e(idA)}</span><span class="conflict-dec ${decA}">${decLabel[decA]||decA}</span>
-      &nbsp;↔&nbsp;<span class="conflict-rule-pair">${e(idB)}</span><span class="conflict-dec ${decB}">${decLabel[decB]||decB}</span></div>
-      <div class="conflict-keywords">คำที่ซ้อนทับ: ${chips}</div>
+      &nbsp;โ”&nbsp;<span class="conflict-rule-pair">${e(idB)}</span><span class="conflict-dec ${decB}">${decLabel[decB]||decB}</span></div>
+      <div class="conflict-keywords">เธเธณเธ—เธตเนเธเนเธญเธเธ—เธฑเธ: ${chips}</div>
     </div>`;
   }).join('');
 
-  panel.innerHTML = `<div class="conflict-title">⚠️ พบ ${conflicts.length} คู่กฎที่ Visual Signal ทับซ้อนกัน</div>
-    <div class="conflict-subtitle">กฎเหล่านี้อาจ match รูปเดียวกันแต่ให้ Decision ต่างกัน — ใช้ severity_min/max หรือ Threshold_Note เพื่อแยกขอบเขต</div>
+  panel.innerHTML = `<div class="conflict-title">โ ๏ธ เธเธ ${conflicts.length} เธเธนเนเธเธเธ—เธตเน Visual Signal เธ—เธฑเธเธเนเธญเธเธเธฑเธ</div>
+    <div class="conflict-subtitle">เธเธเน€เธซเธฅเนเธฒเธเธตเนเธญเธฒเธ match เธฃเธนเธเน€เธ”เธตเธขเธงเธเธฑเธเนเธ•เนเนเธซเน Decision เธ•เนเธฒเธเธเธฑเธ โ€” เนเธเน severity_min/max เธซเธฃเธทเธญ Threshold_Note เน€เธเธทเนเธญเนเธขเธเธเธญเธเน€เธเธ•</div>
     ${items}`;
   panel.classList.add('show');
 }
@@ -1575,7 +1575,7 @@ function clearDraft() {
 
 // ===== UTILS =====
 function showLoading(text) {
-  document.getElementById('loading-text').textContent = text || 'กำลังประมวลผล...';
+  document.getElementById('loading-text').textContent = text || 'เธเธณเธฅเธฑเธเธเธฃเธฐเธกเธงเธฅเธเธฅ...';
   document.getElementById('loading-dots').style.display = 'none';
   document.getElementById('loading').classList.add('show');
 }
@@ -1599,36 +1599,37 @@ window.showScreen = function(name) {
 };
 
 function _syncShell(name) {
-  const labels = { home:'สอนงานน้อง Powdy', edit:'แก้ไขกฎ', preview:'Preview & Save', success:'บันทึกสำเร็จ' };
+  const labels = { home:'เธชเธญเธเธเธฒเธเธเนเธญเธ Powdy', edit:'เนเธเนเนเธเธเธ', preview:'Preview & Save', success:'เธเธฑเธเธ—เธถเธเธชเธณเน€เธฃเนเธ' };
   const crumb = document.getElementById('breadcrumb-now');
   if (crumb) crumb.textContent = labels[name] || name;
 
   const sbCount = document.getElementById('sb-session-count');
-  if (sbCount) sbCount.textContent = (name === 'edit' && rules.length > 0) ? rules.length : '·';
+  if (sbCount) sbCount.textContent = (name === 'edit' && rules.length > 0) ? rules.length : 'ยท';
 
   const kbCount = document.getElementById('sb-kb-count');
   if (kbCount && existingRuleIds.length > 0) kbCount.textContent = existingRuleIds.length;
 
   const ms = document.getElementById('mascot-status');
-  if (ms && existingRuleIds.length > 0) ms.textContent = `เรียนรู้แล้ว ${existingRuleIds.length} กฎ`;
+  if (ms && existingRuleIds.length > 0) ms.textContent = `เน€เธฃเธตเธขเธเธฃเธนเนเนเธฅเนเธง ${existingRuleIds.length} เธเธ`;
 
   const statEl = document.getElementById('stat-total');
   if (statEl && existingRuleIds.length > 0) statEl.textContent = existingRuleIds.length;
   const statD = document.getElementById('stat-total-d');
-  if (statD && existingRuleIds.length > 0) statD.textContent = `${existingRuleIds.length} กฎในระบบ`;
+  if (statD && existingRuleIds.length > 0) statD.textContent = `${existingRuleIds.length} เธเธเนเธเธฃเธฐเธเธ`;
 }
 
 // Sync admin display name to topbar avatar when init updates admin-name element
 new MutationObserver(function(muts) {
   muts.forEach(function(m) {
-    const text = (m.target.textContent || '').replace('👤 ', '').trim();
+    const text = (m.target.textContent || '').replace('๐‘ค ', '').trim();
     if (!text || text === 'Knowledge Update Tool' || text === 'Admin Mode (Browser)') return;
     const av = document.getElementById('user-avatar');
     if (av) av.textContent = text.slice(0,2).toUpperCase();
     const abr = document.getElementById('admin-bar-right');
-    if (abr) abr.textContent = text + ' · Admin';
+    if (abr) abr.textContent = text + ' ยท Admin';
   });
 }).observe(document.getElementById('admin-name'), { childList: true, characterData: true, subtree: true });
 </script>
 </body>
 </html>
+
