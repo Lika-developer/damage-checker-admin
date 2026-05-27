@@ -826,9 +826,9 @@ let savedImageCount = 0;
 
 // ===== INIT =====
 (async function init() {
+  if (!/Line\//i.test(navigator.userAgent)) { bypassAuth(); return; }
   try {
-    const liffTimeout = new Promise((_, rej) => setTimeout(() => rej(new Error('liff-timeout')), 4000));
-    await Promise.race([liff.init({ liffId: ADMIN_LIFF_ID }), liffTimeout]);
+    await liff.init({ liffId: ADMIN_LIFF_ID });
     if (!liff.isLoggedIn()) { liff.login(); return; }
     const profile = await liff.getProfile();
     adminName = profile.displayName;
