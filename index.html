@@ -448,6 +448,11 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
     <div class="auth-spinner"></div>
     <div class="auth-title">กำลังตรวจสอบสิทธิ์...</div>
     <div class="auth-sub">LINE Admin Portal</div>
+    <div id="auth-bypass-wrap" style="display:none;margin-top:16px">
+      <button class="pbtn pbtn--ghost pbtn--sm" onclick="bypassAuth()" style="font-size:13px">
+        เปิดใน Browser Mode
+      </button>
+    </div>
   </div>
 </div>
 
@@ -847,11 +852,22 @@ let savedImageCount = 0;
       showScreen('denied');
     }
   } catch(e) {
-    document.getElementById('admin-name').textContent = 'Admin Mode (Browser)';
-    showScreen('home');
-    fetchExistingRuleIds();
+    bypassAuth();
   }
 })();
+
+function bypassAuth() {
+  document.getElementById('admin-name').textContent = 'Admin Mode (Browser)';
+  showScreen('home');
+  fetchExistingRuleIds();
+}
+
+// Show bypass button after 5s if still stuck on checking screen
+setTimeout(() => {
+  const wrap = document.getElementById('auth-bypass-wrap');
+  const checking = document.getElementById('screen-checking');
+  if (wrap && checking && checking.classList.contains('active')) wrap.style.display = 'block';
+}, 5000);
 
 async function fetchExistingRuleIds() {
   const el = document.getElementById('existing-ids-status');
