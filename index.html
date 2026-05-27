@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>POWDY ยท Admin โ€” Train</title>
+<title>POWDY · Admin — Train</title>
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
@@ -822,7 +822,8 @@ let savedImageCount = 0;
 // ===== INIT =====
 (async function init() {
   try {
-    await liff.init({ liffId: ADMIN_LIFF_ID });
+    const liffTimeout = new Promise((_, rej) => setTimeout(() => rej(new Error('liff-timeout')), 4000));
+    await Promise.race([liff.init({ liffId: ADMIN_LIFF_ID }), liffTimeout]);
     if (!liff.isLoggedIn()) { liff.login(); return; }
     const profile = await liff.getProfile();
     adminName = profile.displayName;
@@ -847,8 +848,8 @@ let savedImageCount = 0;
     }
   } catch(e) {
     document.getElementById('admin-name').textContent = 'Admin Mode (Browser)';
-    await fetchExistingRuleIds();
     showScreen('home');
+    fetchExistingRuleIds();
   }
 })();
 
