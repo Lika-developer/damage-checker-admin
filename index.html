@@ -957,19 +957,26 @@ function updateRuleField(idx, field, value) {
   }
 }
 
-// Sync current DOM input values → rules[idx] before AI call
+// Sync current DOM input values → rules[idx] before AI call or save
 function syncRowFromDOM(idx) {
-  const row = document.getElementById('rule-row-' + idx);
-  if (!row) return;
-  row.querySelectorAll('textarea, input[type="text"], select').forEach(function(el) {
-    const handler = el.getAttribute('oninput') || el.getAttribute('onchange') || '';
-    const m = handler.match(/updateRuleField\(\d+,'([^']+)',this\.value\)/);
-    if (m && m[1]) rules[idx][m[1]] = el.value;
+  ['rule-row-' + idx, 'exp-row-' + idx].forEach(function(rowId) {
+    const row = document.getElementById(rowId);
+    if (!row) return;
+    row.querySelectorAll('textarea, input[type="text"], select').forEach(function(el) {
+      const handler = el.getAttribute('oninput') || el.getAttribute('onchange') || '';
+      const m = handler.match(/updateRuleField\(\d+,'([^']+)',this\.value\)/);
+      if (m && m[1]) rules[idx][m[1]] = el.value;
+      if (/updateAskType\(/.test(handler)) {
+        rules[idx].Ask_Type = el.value;
+        if (el.value === 'follow_up') rules[idx].Decision = 'ขึ้นกับตัวเลือก';
+      }
+    });
   });
 }
 
 function updateAskType(idx, value) {
   rules[idx].Ask_Type = value;
+  if (value === 'follow_up') rules[idx].Decision = 'ขึ้นกับตัวเลือก';
   const section = document.getElementById('followup-section-' + idx);
   if (section) section.style.display = value === 'follow_up' ? 'grid' : 'none';
   const decCell = document.getElementById('dec-cell-' + idx);
@@ -1398,6 +1405,8 @@ async function saveRules() {
   }, 3500);
 
   try {
+    // Sync all expanded-section DOM fields → rules[] before building payload
+    rules.forEach(function(_, i) { syncRowFromDOM(i); });
     const cleanRules = rules.map(r => {
       const obj = {};
       RULE_COLUMNS.forEach(k => { obj[k] = r[k] !== undefined ? r[k] : ''; });
@@ -1405,9 +1414,11 @@ async function saveRules() {
       if (!obj.Confidence_Required) obj.Confidence_Required = 'High';
       if (!obj.Rule_ID) obj.Rule_ID = generateRuleId(r.Decision);
       if (!obj.Ask_Type) obj.Ask_Type = 'direct';
+      if (obj.Ask_Type === 'follow_up') obj.Decision = 'ขึ้นกับตัวเลือก';
       if (!obj.product_category) obj.product_category = 'general';
       if (obj.severity_min === undefined || obj.severity_min === '') obj.severity_min = 0;
       if (obj.severity_max === undefined || obj.severity_max === '') obj.severity_max = 100;
+      if (r._imageData && obj.Rule_ID) obj.Ref_Image_Filename = obj.Rule_ID + '_ref.jpg';
       return obj;
     });
 
