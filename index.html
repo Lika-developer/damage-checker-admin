@@ -957,6 +957,17 @@ function updateRuleField(idx, field, value) {
   }
 }
 
+// Sync current DOM input values → rules[idx] before AI call
+function syncRowFromDOM(idx) {
+  const row = document.getElementById('rule-row-' + idx);
+  if (!row) return;
+  row.querySelectorAll('textarea, input[type="text"], select').forEach(function(el) {
+    const handler = el.getAttribute('oninput') || el.getAttribute('onchange') || '';
+    const m = handler.match(/updateRuleField\(\d+,'([^']+)',this\.value\)/);
+    if (m && m[1]) rules[idx][m[1]] = el.value;
+  });
+}
+
 function updateAskType(idx, value) {
   rules[idx].Ask_Type = value;
   const section = document.getElementById('followup-section-' + idx);
@@ -1231,6 +1242,7 @@ function removeRowImage(idx) {
 
 // ===== ANALYZE ROW =====
 async function analyzeRow(idx) {
+  syncRowFromDOM(idx);   // ensure latest DOM edits are in rules[idx] before reading
   const rule = rules[idx];
   const desc = [rule.Visual_Signal_TH, rule.Rule_Name_TH, rule.Category_TH].filter(Boolean).join(' — ');
   if (!desc && !rule._imageData) { showToast('⚠️ กรอกข้อมูลหรือแนบรูปก่อนวิเคราะห์'); return; }
