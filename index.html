@@ -1950,6 +1950,28 @@ new MutationObserver(function(muts) {
   });
 }).observe(document.getElementById('admin-name'), { childList: true, characterData: true, subtree: true });
 </script>
+
+<!-- EMERGENCY BROWSER BYPASS — independent script, runs even if main script has errors -->
+<script>
+(function() {
+  if (/Line\//i.test(navigator.userAgent)) return; // real LINE app — skip
+  var DELAY = 800; // ms to wait before forcing home
+  setTimeout(function() {
+    var checking = document.getElementById('screen-checking');
+    if (!checking || !checking.classList.contains('active')) return; // already navigated
+    // Try calling main script's function first
+    if (typeof showScreen === 'function') {
+      try { showScreen('home'); return; } catch(e) {}
+    }
+    // Fallback: raw DOM bypass
+    document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+    var home = document.getElementById('screen-home');
+    if (home) home.classList.add('active');
+    var abr = document.getElementById('admin-bar-right');
+    if (abr) abr.textContent = 'Browser Mode';
+  }, DELAY);
+})();
+</script>
 </body>
 </html>
 
