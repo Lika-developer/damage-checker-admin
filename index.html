@@ -1014,7 +1014,6 @@ function buildExpandedFields(idx) {
     { key:'Category_TH',         label:'หมวดหมู่ความเสียหาย',               type:'input' },
     { key:'Rule_Name_TH',        label:'ชื่อกฎ',                             type:'input' },
     { key:'Priority',            label:'ลำดับความสำคัญ',                     type:'select', opts:['High','Medium','Low'] },
-    { key:'Product_Scope',       label:'ขอบเขตสินค้า',                       type:'input' },
     { key:'Threshold_Note',      label:'เกณฑ์การตัดสิน (เพิ่มเติม)',          type:'textarea' },
     { key:'Ask_More_TH',         label:'คำถามขอรูปเพิ่ม (สำหรับ UNCERTAIN)',  type:'textarea' },
     { key:'Common_Confusion_TH', label:'ข้อควรระวัง / กฎที่ใกล้เคียง',        type:'textarea' },
@@ -1050,9 +1049,10 @@ function buildExpandedFields(idx) {
   const severityHtml = `<div class="exp-field">
     <label>📦 ประเภทสินค้า (product_category)</label>
     <select onchange="updateRuleField(${idx},'product_category',this.value)">
-      <option value="general"        ${(rule.product_category||'general')==='general'        ?'selected':''}>🔹 General — ทั่วไป (D1:25% D2:30% D3:30% D4:15%)</option>
-      <option value="small_app"      ${(rule.product_category||'general')==='small_app'      ?'selected':''}>📱 Small App / Gadget (D1:20% D2:20% D3:30% D4:30%)</option>
-      <option value="large_home_app" ${(rule.product_category||'general')==='large_home_app' ?'selected':''}>🏠 Large Home Appliance (D1:15% D2:40% D3:30% D4:15%)</option>
+      <option value="general"        ${(rule.product_category||'general')==='general'        ?'selected':''}>🔹 General — ใช้ได้ทุกกลุ่ม (fallback)</option>
+      <option value="large_home_app" ${(rule.product_category||'general')==='large_home_app' ?'selected':''}>🏠 Large Home Appliance — ทีวี ตู้เย็น เครื่องซักผ้า แอร์</option>
+      <option value="small_app"      ${(rule.product_category||'general')==='small_app'      ?'selected':''}>🔌 Small Appliance — หม้อหุงข้าว เครื่องปั่น พัดลม</option>
+      <option value="gadget"         ${(rule.product_category||'general')==='gadget'         ?'selected':''}>📱 Gadget — มือถือ หูฟัง Laptop เครื่องเล่นเกม</option>
     </select>
   </div>
   <div class="exp-field" style="grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;gap:12px">
