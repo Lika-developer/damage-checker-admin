@@ -64,6 +64,12 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 /* ===== APP SHELL ===== */
 .app-shell{position:fixed;top:28px;left:0;right:0;bottom:0;display:grid;grid-template-columns:240px 1fr;}
 
+/* ===== SIDEBAR TOGGLE (hamburger) ===== */
+.sb-toggle{display:none;align-items:center;justify-content:center;width:38px;height:38px;flex-shrink:0;border:1px solid var(--n200);background:#fff;border-radius:10px;cursor:pointer;color:var(--pwd-purple);margin-right:10px;}
+.sb-toggle svg{width:20px;height:20px;}
+.sb-overlay{display:none;position:fixed;inset:28px 0 0 0;background:rgba(23,10,49,0.5);z-index:40;opacity:0;transition:opacity var(--t-fast) var(--ease-out);}
+.sb-overlay.show{display:block;opacity:1;}
+
 /* ===== SIDEBAR ===== */
 .csb{background:linear-gradient(185deg,#2D155D 0%,#220F47 62%,#170A31 100%);color:#fff;display:flex;flex-direction:column;padding:16px 0;overflow:hidden;}
 .csb-brand{padding:0 18px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,0.08);flex-shrink:0;}
@@ -87,6 +93,15 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 .mname{font-size:13.5px;font-weight:800;font-family:var(--font-display);letter-spacing:0;text-transform:none;color:#fff;}
 .mstatus{font-size:11.5px;color:rgba(255,255,255,0.66);font-family:var(--font-sans);font-weight:600;letter-spacing:0;margin-top:2px;display:flex;align-items:center;gap:6px;}
 .mstatus::before{content:"";width:7px;height:7px;background:var(--success);border-radius:999px;flex-shrink:0;box-shadow:0 0 0 3px rgba(34,167,82,0.25);}
+
+/* ===== MOBILE: sidebar becomes off-canvas drawer ===== */
+@media(max-width:768px){
+  .app-shell{grid-template-columns:1fr;}
+  .sb-toggle{display:flex;}
+  .csb{position:fixed;top:28px;left:0;bottom:0;width:264px;max-width:84vw;z-index:50;transform:translateX(-100%);transition:transform var(--t-base,0.22s) var(--ease-out);box-shadow:4px 0 24px rgba(23,10,49,0.35);}
+  .csb.open{transform:translateX(0);}
+  .csb-mascot{display:none;}
+}
 
 /* ===== MAIN PANEL + POWDY THEME ===== */
 .cmain{
@@ -424,8 +439,11 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 <!-- App Shell -->
 <div class="app-shell">
 
+  <!-- Mobile sidebar overlay -->
+  <div class="sb-overlay" id="sb-overlay" onclick="toggleSidebar(false)"></div>
+
   <!-- Sidebar -->
-  <aside class="csb">
+  <aside class="csb" id="csb">
     <div class="csb-brand">
       <img src="brand/powdy-logo-badge.png" alt="Powdy"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -484,6 +502,9 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 
     <!-- Topbar -->
     <div class="ctopbar">
+      <button class="sb-toggle" id="sb-toggle" aria-label="เมนู" onclick="toggleSidebar()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <nav class="crumb">
         <span>Admin</span>
         <span class="sep">/</span>
@@ -1670,6 +1691,22 @@ new MutationObserver(function(muts) {
     if (abr) abr.textContent = text + ' · Admin';
   });
 }).observe(document.getElementById('admin-name'), { childList: true, characterData: true, subtree: true });
+
+// ===== Mobile sidebar drawer toggle =====
+function toggleSidebar(force) {
+  const sb = document.getElementById('csb');
+  const ov = document.getElementById('sb-overlay');
+  if (!sb) return;
+  const open = (typeof force === 'boolean') ? force : !sb.classList.contains('open');
+  sb.classList.toggle('open', open);
+  if (ov) ov.classList.toggle('show', open);
+}
+// close drawer after tapping a nav item (mobile)
+document.querySelectorAll('.csb-nav .csb-item').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    if (window.matchMedia('(max-width:768px)').matches) toggleSidebar(false);
+  });
+});
 </script>
 </body>
 </html>
