@@ -654,6 +654,7 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
           <p style="font-size:14px;color:var(--n600);margin-bottom:14px">กฎเหล่านี้จะถูกเพิ่มเข้า Decision_Rules และน้อง Powdy จะเรียนรู้ทันที</p>
           <div id="preview-img-notice">📷 <span id="preview-img-count">0</span> กฎมีรูปอ้างอิง — จะถูก upload ไป Google Drive อัตโนมัติ</div>
           <div id="preview-followup-notice">❓ <span id="preview-followup-count">0</span> กฎมีการถามต่อ (follow_up) — น้อง Powdy จะส่งคำถาม choice ก่อนตัดสินใจ</div>
+          <div id="preview-coverage-notice" style="display:none;background:#FFF8E1;border:1px solid #FFB74D;border-radius:4px;padding:10px 14px;font-size:14px;color:#E65100;margin-bottom:12px;">⚠️ ประเภทสินค้าที่ยัง<strong>ไม่มีกฎเฉพาะ</strong>: <span id="preview-coverage-list"></span> <span id="preview-coverage-fallback" style="color:#1F7A3A"></span></div>
           <div style="overflow-x:auto">
             <table class="preview-table">
               <thead><tr>
@@ -1363,6 +1364,18 @@ function goToPreview() {
   const fuNotice = document.getElementById('preview-followup-notice');
   if (followupCount > 0) { document.getElementById('preview-followup-count').textContent = followupCount; fuNotice.style.display = 'block'; }
   else fuNotice.style.display = 'none';
+
+  // Category coverage check — warn if any product_category has no dedicated rule
+  const ALL_CATS = { large_home_app:'🏠 Large Home Appliance', small_app:'🔌 Small Appliance', gadget:'📱 Gadget' };
+  const covered = new Set(rules.map(r => r.product_category || 'general'));
+  const missing = Object.keys(ALL_CATS).filter(c => !covered.has(c));
+  const covNotice = document.getElementById('preview-coverage-notice');
+  if (missing.length > 0) {
+    document.getElementById('preview-coverage-list').textContent = missing.map(c => ALL_CATS[c]).join(', ');
+    document.getElementById('preview-coverage-fallback').textContent =
+      covered.has('general') ? '— มีกฎ General (fallback) รองรับอยู่ บันทึกได้' : '— ยังไม่มีกฎ General (fallback) ด้วย เสี่ยง PENDING';
+    covNotice.style.display = 'block';
+  } else covNotice.style.display = 'none';
 
   const dc = {REJECT:'db-reject', ACCEPT:'db-accept', UNCERTAIN:'db-uncertain'};
   const atLabel = {
