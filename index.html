@@ -401,6 +401,40 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 .severity-bar{position:relative;height:6px;background:var(--n200);border-radius:3px;margin-top:8px;overflow:hidden;}
 .severity-fill{position:absolute;top:0;height:100%;background:linear-gradient(90deg,var(--pwd-orange) 0%,var(--pwd-purple) 100%);border-radius:3px;transition:left 0.15s,width 0.15s;}
 .severity-legend{display:flex;justify-content:space-between;font-size:11px;color:var(--n500);margin-top:4px;font-family:var(--font-mono);}
+/* ===== Powdy v2 — Master Severity Config ===== */
+.mtabs{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 18px;}
+.mtab{padding:9px 16px;border:1px solid var(--n200);background:#fff;border-radius:11px;cursor:pointer;font-weight:700;font-size:13px;color:var(--n600);}
+.mtab.active{background:var(--pwd-purple);color:#fff;border-color:var(--pwd-purple);}
+.mpane{display:none;}
+.mpane.active{display:block;}
+.mnote{font-size:13px;color:var(--n600);background:var(--pwd-purple-soft);border-radius:10px;padding:10px 13px;margin-bottom:14px;}
+.mwarn{font-size:13px;color:var(--pwd-orange-deep);background:var(--pwd-orange-soft);border-radius:10px;padding:10px 13px;margin-bottom:14px;font-weight:600;}
+.mcard{background:#fff;border:1px solid var(--n200);border-radius:16px;padding:18px;margin-bottom:16px;}
+.mcard-h{font-weight:800;color:var(--pwd-purple);margin-bottom:14px;font-size:15px;}
+.wgrp-sum{font-family:var(--font-mono);font-weight:700;padding:3px 10px;border-radius:999px;font-size:13px;}
+.wgrp-sum.ok{background:rgba(34,160,90,0.12);color:#1c7a44;}
+.wgrp-sum.bad{background:var(--pwd-orange-soft);color:var(--pwd-orange-deep);}
+.wrow{display:flex;align-items:center;gap:12px;margin:12px 0;}
+.wrow label{flex:0 0 130px;font-size:13px;color:var(--n700);font-weight:600;}
+.wrow input[type=range]{flex:1;accent-color:var(--pwd-purple);}
+.wrow .wval{flex:0 0 42px;text-align:right;font-family:var(--font-mono);font-weight:700;color:var(--pwd-orange);}
+.mfield{display:block;font-size:13px;color:var(--n700);font-weight:600;margin-bottom:14px;}
+.mfield input{display:block;width:100%;margin-top:6px;padding:10px 12px;border:1px solid var(--n200);border-radius:10px;font-size:14px;box-sizing:border-box;}
+.mhint{display:block;font-weight:400;color:var(--n500);font-size:11px;margin-top:4px;}
+.gadget-extra{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;padding-top:12px;border-top:1px dashed var(--n200);}
+.gadget-extra .mfield{flex:1;min-width:140px;margin-bottom:0;}
+.lvl-row{display:flex;align-items:center;gap:10px;margin:8px 0;background:#fff;border:1px solid var(--n200);border-radius:12px;padding:10px 12px;}
+.lvl-row .lvl-tag{flex:0 0 38px;font-weight:800;color:var(--pwd-purple);}
+.lvl-row input[type=number]{width:64px;padding:7px 8px;border:1px solid var(--n200);border-radius:8px;text-align:center;}
+.lvl-row select{padding:7px 8px;border:1px solid var(--n200);border-radius:8px;}
+.msave-bar{margin-top:18px;}
+.mtoggle-row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;}
+.mdesc{background:var(--n50);border:1px solid var(--n200);border-radius:14px;padding:14px 16px;margin-top:4px;}
+.mdesc-h{font-weight:800;color:var(--pwd-purple);font-size:13px;margin-bottom:8px;}
+.mdesc ul{margin:0;padding-left:18px;}
+.mdesc li{font-size:12.5px;color:var(--n700);line-height:1.7;}
+.mdesc li b{color:var(--pwd-purple-bright);}
+.mdesc-note{margin-top:10px;padding-top:10px;border-top:1px dashed var(--n200);font-size:12px;color:var(--n600);}
 </style>
 </head>
 <body>
@@ -482,6 +516,19 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
       <button class="csb-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
         รายงาน
+      </button>
+    </div>
+
+    <div class="csb-section">ตั้งค่า</div>
+    <div class="csb-nav">
+      <button class="csb-item" id="sb-item-master" onclick="openMaster()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.9 4.9 1.4 1.4"/><path d="m17.7 17.7 1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/></svg>
+        ค่าความรุนแรง
+        <span class="sb-count">v2</span>
+      </button>
+      <button class="csb-item" id="sb-item-handoff" onclick="openMaster('handoff')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-6 0v4"/><rect x="2" y="9" width="20" height="11" rx="2"/></svg>
+        SOP Bot Handoff
       </button>
     </div>
 
@@ -707,6 +754,77 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
         </div>
       </div>
 
+      <!-- Screen: Master Severity Config (Powdy v2) -->
+      <div id="screen-master" class="screen">
+        <div class="cph">
+          <div>
+            <div class="cph-chip">Powdy v2 · ตั้งค่ากลาง</div>
+            <h1>ค่าความรุนแรง (Severity)</h1>
+            <p style="font-size:13px;color:var(--n600);margin-top:4px">ปรับน้ำหนัก 4 มิติต่อกลุ่มสินค้า และเส้นแบ่งระดับ L1–L5 — มีผลกับการตัดสินทุกเคส</p>
+          </div>
+        </div>
+
+        <div class="mtabs">
+          <button class="mtab active" id="mtab-weights" onclick="switchMasterTab('weights')">⚖️ น้ำหนัก 4 มิติ</button>
+          <button class="mtab" id="mtab-levels" onclick="switchMasterTab('levels')">📊 เส้นระดับ L1–L5</button>
+          <button class="mtab" id="mtab-handoff" onclick="switchMasterTab('handoff')">🤝 SOP Bot Handoff</button>
+        </div>
+
+        <!-- Tab: Weights -->
+        <div id="mpane-weights" class="mpane active">
+          <div id="weights-status" class="mnote">⏳ กำลังโหลดค่า...</div>
+          <div id="weights-cards"></div>
+          <div class="mdesc">
+            <div class="mdesc-h">📖 ความหมายแต่ละมิติ (0 = ไม่มีผล · 100 = รุนแรงสุด)</div>
+            <ul>
+              <li><b>D1 มองเห็น</b> (Visibility) — เห็นชัดแค่ไหนตอนรับของ · 0 ต้องเพ่งหา / 100 เห็นแต่ไกล</li>
+              <li><b>D2 ใช้งาน</b> (Functional) — กระทบการใช้งานไหม · 0 ไม่กระทบ / 100 ใช้ไม่ได้</li>
+              <li><b>D3 ความรู้สึก</b> (Perceived) — ลูกค้ารู้สึกเหมือนของไม่ใหม่/ถูกหลอกไหม · 0 รับได้ / 100 รับไม่ได้</li>
+              <li><b>D4 บรรจุภัณฑ์</b> (Packaging) — กล่อง/ซีล/ประสบการณ์แกะกล่อง · 0 สมบูรณ์ / 100 กล่องพังหรือซีลเปิด</li>
+            </ul>
+            <div class="mdesc-note">น้ำหนักยิ่งสูง = มิตินั้นมีผลต่อการตัดสินใจมากขึ้นสำหรับสินค้ากลุ่มนั้น · รวมทุกมิติต้อง = 100</div>
+          </div>
+          <div class="msave-bar">
+            <button class="pbtn pbtn--primary" id="btn-save-weights" onclick="saveMaster()">💾 บันทึกน้ำหนัก + เส้นระดับ</button>
+          </div>
+        </div>
+
+        <!-- Tab: Levels -->
+        <div id="mpane-levels" class="mpane">
+          <div class="mnote">เส้นแบ่งคะแนน 0–100 เป็นระดับ L1–L5 · ต้อง<b>ต่อเนื่อง ไม่ทับ ไม่ขาด</b></div>
+          <div id="levels-table"></div>
+          <div id="levels-warn" class="mwarn" style="display:none"></div>
+          <div class="msave-bar">
+            <button class="pbtn pbtn--primary" id="btn-save-levels" onclick="saveMaster()">💾 บันทึกน้ำหนัก + เส้นระดับ</button>
+          </div>
+        </div>
+
+        <!-- Tab: Handoff -->
+        <div id="mpane-handoff" class="mpane">
+          <div class="mnote">สลับโหมดผู้ใช้รายคน — <b>HUMAN</b> = Admin คุยเอง (บอทเงียบ) · <b>BOT</b> = น้อง Powdy ตอบ SOP</div>
+          <div class="mcard">
+            <div class="mcard-h">ตั้งค่าโหมดผู้ใช้</div>
+            <label class="mfield">LINE User ID
+              <input type="text" id="handoff-uid" placeholder="Uxxxxxxxx..." />
+            </label>
+            <label class="mfield">หมดอายุ (TTL) ชั่วโมง
+              <input type="number" id="handoff-ttl" value="2" min="0" step="0.5" />
+              <span class="mhint">0 = ไม่หมดอายุ (ต้องปิดเอง)</span>
+            </label>
+            <div class="mtoggle-row">
+              <button class="pbtn pbtn--outline" onclick="setHandoff('HUMAN')">🙋 ตั้งเป็น HUMAN (Admin คุย)</button>
+              <button class="pbtn pbtn--ghost" onclick="setHandoff('BOT')">🤖 คืนให้ BOT</button>
+            </div>
+            <div id="handoff-status" class="mnote"></div>
+          </div>
+          <div class="mcard">
+            <div class="mcard-h">ผู้ใช้ที่ Admin กำลังคุยอยู่ (HUMAN)</div>
+            <div id="handoff-list"><span class="mhint">— กดโหลด —</span></div>
+            <button class="pbtn pbtn--ghost pbtn--sm" onclick="loadHandoffList()" style="margin-top:10px">🔄 โหลดรายการ</button>
+          </div>
+        </div>
+      </div>
+
     </div><!-- .cview -->
   </div><!-- .cmain -->
 </div><!-- .app-shell -->
@@ -734,6 +852,11 @@ const ANALYZE_URL      = N8N_BASE + '/liff-rule-analyze';
 const SAVE_URL         = N8N_BASE + '/liff-rule-save';
 const VERIFY_URL       = N8N_BASE + '/liff-verify-admin';
 const GET_RULE_IDS_URL = N8N_BASE + '/liff-get-rule-ids';
+// Powdy v2 — Master Severity Config + Handoff endpoints (backend by Enzo)
+const MASTER_GET_URL   = N8N_BASE + '/liff-master-get';
+const MASTER_SAVE_URL  = N8N_BASE + '/liff-master-save';
+const HANDOFF_SET_URL  = N8N_BASE + '/liff-handoff-set';
+const HANDOFF_LIST_URL = N8N_BASE + '/liff-handoff-list';
 
 const RULE_COLUMNS = [
   'Rule_ID','Priority','Decision','Category_TH','Rule_Name_TH','Product_Scope',
@@ -741,7 +864,7 @@ const RULE_COLUMNS = [
   'Response_Template_TH','Ask_More_TH','Common_Confusion_TH',
   'Ask_Type','Followup_Question_TH',
   'Opt1_Label','Opt1_Decision','Opt2_Label','Opt2_Decision','Opt3_Label','Opt3_Decision',
-  'product_category','severity_min','severity_max',
+  'product_category','severity_min','severity_max','severity_level',
   'Ref_Image_Filename','Ref_Image_URL','Last_Updated'
 ];
 
@@ -819,6 +942,11 @@ function showScreen(name) {
     if (btn) btn.disabled = false;
   }
   if (name === 'home') checkForDraft();
+  if (name !== 'master') {
+    setNav('sb-item-train');
+    const bc = document.getElementById('breadcrumb-now');
+    if (bc && name === 'home') bc.textContent = 'สอนงานน้อง Powdy';
+  }
 }
 
 function checkForDraft() {
@@ -1520,6 +1648,210 @@ function autoGenFollowupQuestion(idx) {
   rules[idx].Followup_Question_TH = generated;
   const ta = document.getElementById('fq-ta-' + idx);
   if (ta) ta.value = generated;
+}
+
+// ===== POWDY v2 — MASTER SEVERITY CONFIG =====
+const MASTER_DEFAULT = {
+  groups: [
+    { group_id:'large_home', group_label_th:'Large / Home Appliance', w_visibility:20, w_functional:45, w_perceived:25, w_packaging:10 },
+    { group_id:'small',      group_label_th:'Small Appliance',        w_visibility:25, w_functional:35, w_perceived:25, w_packaging:15 },
+    { group_id:'gadget',     group_label_th:'Gadget Sensitive',       w_visibility:20, w_functional:15, w_perceived:30, w_packaging:35, gadget_d4_followup:51, gadget_d4_reject:76 }
+  ],
+  levels: [
+    { level:'L1', score_min:0,  score_max:20,  decision:'accept' },
+    { level:'L2', score_min:21, score_max:40,  decision:'accept' },
+    { level:'L3', score_min:41, score_max:60,  decision:'followup' },
+    { level:'L4', score_min:61, score_max:80,  decision:'reject' },
+    { level:'L5', score_min:81, score_max:100, decision:'reject' }
+  ]
+};
+const WDIMS = [['w_visibility','D1 มองเห็น'],['w_functional','D2 ใช้งาน'],['w_perceived','D3 ความรู้สึก'],['w_packaging','D4 บรรจุภัณฑ์']];
+let masterData = null;
+let masterLoaded = false;
+
+function setNav(activeId){
+  document.querySelectorAll('.csb-item').forEach(b => b.classList.remove('active'));
+  const el = document.getElementById(activeId);
+  if (el) el.classList.add('active');
+}
+
+async function openMaster(tab){
+  setNav(tab === 'handoff' ? 'sb-item-handoff' : 'sb-item-master');
+  toggleSidebar(false);
+  showScreen('master');
+  document.getElementById('breadcrumb-now').textContent = 'ค่าความรุนแรง (Severity)';
+  if (!masterLoaded) await loadMaster();
+  switchMasterTab(tab || 'weights');
+}
+
+async function loadMaster(){
+  const status = document.getElementById('weights-status');
+  try {
+    const resp = await fetch(MASTER_GET_URL, { method:'GET' });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    masterData = { groups: data.groups || MASTER_DEFAULT.groups, levels: data.levels || MASTER_DEFAULT.levels };
+    if (status){ status.textContent = '✅ โหลดค่าจากระบบแล้ว'; status.classList.remove('mwarn'); }
+  } catch(e){
+    masterData = JSON.parse(JSON.stringify(MASTER_DEFAULT));
+    if (status) status.innerHTML = '⚠️ ยังเชื่อม backend ไม่ได้ — แสดงค่าเริ่มต้น (แก้ได้ แต่บันทึกจริงต้องรอ endpoint <code>/liff-master-get</code>)';
+  }
+  masterLoaded = true;
+  renderWeights();
+  renderLevels();
+}
+
+function switchMasterTab(tab){
+  ['weights','levels','handoff'].forEach(t => {
+    document.getElementById('mtab-' + t).classList.toggle('active', t === tab);
+    document.getElementById('mpane-' + t).classList.toggle('active', t === tab);
+  });
+}
+
+function renderWeights(){
+  const wrap = document.getElementById('weights-cards');
+  wrap.innerHTML = masterData.groups.map((g, gi) => {
+    const sliders = WDIMS.map(([k,label]) =>
+      `<div class="wrow">
+         <label>${label}</label>
+         <input type="range" min="0" max="100" value="${g[k]}" oninput="updateWeight(${gi},'${k}',this.value)">
+         <span class="wval" id="wval-${gi}-${k}">${g[k]}</span>
+       </div>`).join('');
+    const gadgetExtra = g.group_id === 'gadget'
+      ? `<div class="gadget-extra">
+           <label class="mfield">D4 → ถามเพิ่ม (≥)
+             <input type="number" min="0" max="100" value="${g.gadget_d4_followup ?? 51}" onchange="masterData.groups[${gi}].gadget_d4_followup=+this.value">
+           </label>
+           <label class="mfield">D4 → ปฏิเสธ (≥)
+             <input type="number" min="0" max="100" value="${g.gadget_d4_reject ?? 76}" onchange="masterData.groups[${gi}].gadget_d4_reject=+this.value">
+           </label>
+         </div>` : '';
+    return `<div class="mcard">
+       <div class="mcard-h" style="display:flex;justify-content:space-between;align-items:center">
+         <span>${g.group_label_th}</span>
+         <span class="wgrp-sum" id="wsum-${gi}">—</span>
+       </div>
+       ${sliders}${gadgetExtra}
+     </div>`;
+  }).join('');
+  masterData.groups.forEach((_, gi) => recalcSum(gi));
+}
+
+function updateWeight(gi, key, val){
+  masterData.groups[gi][key] = +val;
+  document.getElementById(`wval-${gi}-${key}`).textContent = val;
+  recalcSum(gi);
+}
+
+function recalcSum(gi){
+  const g = masterData.groups[gi];
+  const sum = WDIMS.reduce((s,[k]) => s + (+g[k]||0), 0);
+  const el = document.getElementById('wsum-' + gi);
+  el.textContent = 'รวม ' + sum + ' / 100';
+  el.className = 'wgrp-sum ' + (sum === 100 ? 'ok' : 'bad');
+  refreshMasterSaveState();
+}
+
+function renderLevels(){
+  const wrap = document.getElementById('levels-table');
+  const opts = ['accept','followup','reject'];
+  wrap.innerHTML = masterData.levels.map((lv, li) =>
+    `<div class="lvl-row">
+       <span class="lvl-tag">${lv.level}</span>
+       <input type="number" min="0" max="100" value="${lv.score_min}" onchange="updateLevel(${li},'score_min',this.value)">
+       <span>–</span>
+       <input type="number" min="0" max="100" value="${lv.score_max}" onchange="updateLevel(${li},'score_max',this.value)">
+       <select onchange="updateLevel(${li},'decision',this.value)">
+         ${opts.map(o => `<option value="${o}" ${lv.decision===o?'selected':''}>${o}</option>`).join('')}
+       </select>
+     </div>`).join('');
+  validateLevels();
+}
+
+function updateLevel(li, key, val){
+  masterData.levels[li][key] = key === 'decision' ? val : +val;
+  validateLevels();
+}
+
+function validateLevels(){
+  const lv = masterData.levels;
+  const errs = [];
+  if (lv[0].score_min !== 0) errs.push('L1 ต้องเริ่มที่ 0');
+  if (lv[lv.length-1].score_max !== 100) errs.push('L5 ต้องจบที่ 100');
+  for (let i=0;i<lv.length;i++){
+    if (lv[i].score_max < lv[i].score_min) errs.push(`${lv[i].level}: max < min`);
+    if (i>0 && lv[i].score_min !== lv[i-1].score_max + 1)
+      errs.push(`${lv[i-1].level}→${lv[i].level} ไม่ต่อเนื่อง (ต้องเป็น ${lv[i-1].score_max}+1)`);
+  }
+  const warn = document.getElementById('levels-warn');
+  if (errs.length){ warn.style.display='block'; warn.innerHTML = '⚠️ ' + errs.join(' · '); }
+  else warn.style.display='none';
+  refreshMasterSaveState();
+  return errs.length === 0;
+}
+
+function refreshMasterSaveState(){
+  if (!masterData) return;
+  const sumsOk = masterData.groups.every(g => WDIMS.reduce((s,[k])=>s+(+g[k]||0),0) === 100);
+  const levelsOk = (document.getElementById('levels-warn')||{}).style?.display === 'none';
+  const ok = sumsOk && levelsOk;
+  ['btn-save-weights','btn-save-levels'].forEach(id => {
+    const b = document.getElementById(id); if (b) b.disabled = !ok;
+  });
+}
+
+async function saveMaster(){
+  if (!masterData.groups.every(g => WDIMS.reduce((s,[k])=>s+(+g[k]||0),0) === 100)){
+    showToast('❌ น้ำหนักแต่ละกลุ่มต้องรวม = 100'); switchMasterTab('weights'); return;
+  }
+  if (!validateLevels()){ showToast('❌ เส้นระดับ L1–L5 ยังไม่ถูกต้อง'); switchMasterTab('levels'); return; }
+  showLoading('💾 กำลังบันทึกค่าความรุนแรง...');
+  try {
+    const resp = await fetch(MASTER_SAVE_URL, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ groups: masterData.groups, levels: masterData.levels, submittedBy: adminName })
+    });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    hideLoading(); showToast('✅ บันทึกค่าความรุนแรงแล้ว');
+  } catch(e){
+    hideLoading(); showToast('❌ บันทึกไม่สำเร็จ: ' + e.message + ' (endpoint /liff-master-save ยังไม่พร้อม?)');
+  }
+}
+
+// ===== HANDOFF =====
+async function setHandoff(mode){
+  const uid = (document.getElementById('handoff-uid').value || '').trim();
+  const ttl = +document.getElementById('handoff-ttl').value || 0;
+  const statusEl = document.getElementById('handoff-status');
+  if (!uid){ showToast('❌ กรอก LINE User ID ก่อน'); return; }
+  const expires_at = ttl > 0 ? new Date(Date.now() + ttl*3600*1000).toISOString() : '';
+  try {
+    const resp = await fetch(HANDOFF_SET_URL, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ user_id:uid, mode, set_by:adminName, set_at:new Date().toISOString(), expires_at, is_active: mode==='HUMAN' })
+    });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    statusEl.textContent = `✅ ตั้ง ${uid} → ${mode} แล้ว`;
+    showToast('✅ อัปเดตโหมดแล้ว');
+  } catch(e){
+    statusEl.textContent = `❌ บันทึกไม่สำเร็จ (endpoint /liff-handoff-set ยังไม่พร้อม?)`;
+  }
+}
+
+async function loadHandoffList(){
+  const wrap = document.getElementById('handoff-list');
+  wrap.innerHTML = '<span class="mhint">⏳ กำลังโหลด...</span>';
+  try {
+    const resp = await fetch(HANDOFF_LIST_URL, { method:'GET' });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    const list = data.users || [];
+    wrap.innerHTML = list.length
+      ? list.map(u => `<div class="lvl-row"><span style="flex:1;font-family:var(--font-mono);font-size:12px">${u.user_id}</span><button class="pbtn pbtn--ghost pbtn--sm" onclick="document.getElementById('handoff-uid').value='${u.user_id}'">เลือก</button></div>`).join('')
+      : '<span class="mhint">— ไม่มีผู้ใช้ในโหมด HUMAN —</span>';
+  } catch(e){
+    wrap.innerHTML = '<span class="mhint">⚠️ โหลดไม่ได้ (endpoint /liff-handoff-list ยังไม่พร้อม?)</span>';
+  }
 }
 
 // ===== SEVERITY SLIDER HELPERS =====
