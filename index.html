@@ -268,8 +268,7 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 .rules-table th.col-img{width:96px;}
 .rules-table th.col-id{width:110px;}
 .rules-table th.col-dec{width:128px;}
-.rules-table th.col-vs{width:26%;}
-.rules-table th.col-rt{width:26%;}
+.rules-table th.col-vs{width:48%;}
 .rules-table th.col-ai{width:80px;text-align:center;}
 .rules-table th.col-act{width:96px;text-align:center;}
 .rule-row td{padding:12px;border-bottom:1px solid var(--n100);vertical-align:top;}
@@ -705,7 +704,6 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
                 <th class="col-id">Rule ID</th>
                 <th class="col-dec">Decision</th>
                 <th class="col-vs">👁 สัญญาณที่มองเห็น <span style="color:var(--pwd-orange);font-weight:400">*</span></th>
-                <th class="col-rt">💬 ข้อความตอบ (AI สร้าง — แก้ได้)</th>
                 <th class="col-ai">AI</th>
                 <th class="col-act">Actions</th>
               </tr>
@@ -726,7 +724,7 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
           <div style="overflow-x:auto">
             <table class="preview-table">
               <thead><tr>
-                <th>Rule ID</th><th>Decision</th><th>Ask Type</th><th>Visual Signal</th><th>Response Template</th>
+                <th>Rule ID</th><th>Decision</th><th>Ask Type</th><th>Visual Signal</th>
               </tr></thead>
               <tbody id="preview-container"></tbody>
             </table>
@@ -1162,11 +1160,7 @@ function buildExpandedFields(idx) {
   const ai = (f) => (rule._aiFields && rule._aiFields.includes(f)) ? ' ai-filled' : '';
   const mainFields = [
     { key:'Category_TH',         label:'หมวดหมู่ความเสียหาย',               type:'input' },
-    { key:'Rule_Name_TH',        label:'ชื่อกฎ',                             type:'input' },
-    { key:'Priority',            label:'ลำดับความสำคัญ',                     type:'select', opts:['High','Medium','Low'] },
     { key:'Threshold_Note',      label:'เกณฑ์การตัดสิน (เพิ่มเติม)',          type:'textarea' },
-    { key:'Ask_More_TH',         label:'คำถามขอรูปเพิ่ม (สำหรับ UNCERTAIN)',  type:'textarea' },
-    { key:'Common_Confusion_TH', label:'ข้อควรระวัง / กฎที่ใกล้เคียง',        type:'textarea' },
   ];
   const fhtml = mainFields.map(f => {
     const val = rule[f.key] || '';
@@ -1191,11 +1185,6 @@ function buildExpandedFields(idx) {
     </select>
   </div>`;
 
-  const sMin = rule.severity_min ?? 0;
-  const sMax = rule.severity_max ?? 100;
-  const fillLeft = sMin + '%';
-  const fillWidth = Math.max(0, sMax - sMin) + '%';
-
   const severityHtml = `<div class="exp-field">
     <label>📦 ประเภทสินค้า (product_category)</label>
     <select onchange="updateRuleField(${idx},'product_category',this.value)">
@@ -1204,35 +1193,6 @@ function buildExpandedFields(idx) {
       <option value="small_app"      ${(rule.product_category||'general')==='small_app'      ?'selected':''}>🔌 Small Appliance — หม้อหุงข้าว เครื่องปั่น พัดลม</option>
       <option value="gadget"         ${(rule.product_category||'general')==='gadget'         ?'selected':''}>📱 Gadget — มือถือ หูฟัง Laptop เครื่องเล่นเกม</option>
     </select>
-  </div>
-  <div class="exp-field" style="grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;gap:12px">
-    <div>
-      <label>🔻 Severity ต่ำสุด</label>
-      <div class="severity-input">
-        <input type="range" min="0" max="100" value="${sMin}"
-          oninput="updateSeverityMin(${idx},+this.value)">
-        <span class="severity-val" id="smin-val-${idx}">${sMin}</span>
-      </div>
-    </div>
-    <div>
-      <label>🔺 Severity สูงสุด</label>
-      <div class="severity-input">
-        <input type="range" min="0" max="100" value="${sMax}"
-          oninput="updateSeverityMax(${idx},+this.value)">
-        <span class="severity-val" id="smax-val-${idx}">${sMax}</span>
-      </div>
-    </div>
-  </div>
-  <div class="exp-field" style="grid-column:span 2">
-    <label>SEVERITY แสดงผล</label>
-    <div class="severity-bar">
-      <div class="severity-fill" id="sev-fill-${idx}" style="left:${fillLeft};width:${fillWidth}"></div>
-    </div>
-    <div class="severity-legend">
-      <span>0</span>
-      <span id="sev-label-${idx}">${sMin} ── ${sMax}</span>
-      <span>100</span>
-    </div>
   </div>`;
 
   const followupDisplay = rule.Ask_Type === 'follow_up' ? 'grid' : 'none';
@@ -1293,7 +1253,6 @@ function renderRules() {
   };
   const rows = rules.map((rule, idx) => {
     const vsAi = (rule._aiFields && rule._aiFields.includes('Visual_Signal_TH')) ? ' ai-filled' : '';
-    const rtAi = (rule._aiFields && rule._aiFields.includes('Response_Template_TH')) ? ' ai-filled' : '';
 
     const imgHtml = rule._imageData
       ? `<div class="img-drop has-img" onclick="removeRowImage(${idx})">
@@ -1343,7 +1302,6 @@ function renderRules() {
         }
       </td>
       <td><textarea class="tbl-ta${vsAi}" rows="3" placeholder="อธิบายสิ่งที่มองเห็นในรูป..." oninput="updateRuleField(${idx},'Visual_Signal_TH',this.value)">${e(rule.Visual_Signal_TH)}</textarea></td>
-      <td><textarea class="tbl-ta${rtAi}" rows="3" placeholder="กด 🤖 เพื่อให้ AI เขียนให้..." oninput="updateRuleField(${idx},'Response_Template_TH',this.value)">${e(rule.Response_Template_TH)}</textarea></td>
       <td style="text-align:center">${aiBadge}</td>
       <td>
         <button class="btn-row-ai ${hasImgClass}" onclick="analyzeRow(${idx})" id="btn-ai-${idx}">✨ AI</button>
@@ -1353,7 +1311,7 @@ function renderRules() {
     </tr>`;
 
     const expandedRow = rule._expanded ? `<tr class="expanded-tr" id="exp-row-${idx}">
-      <td colspan="8">${buildExpandedFields(idx)}</td>
+      <td colspan="7">${buildExpandedFields(idx)}</td>
     </tr>` : '';
 
     return mainRow + expandedRow;
@@ -1539,7 +1497,6 @@ function goToPreview() {
       <td><span class="${dc[rule.Decision]||'db-uncertain'}">${rule.Decision}</span>${rule._imageData?' 📷':''}</td>
       <td style="font-size:12px;color:var(--n600)">${atLabel[rule.Ask_Type]||rule.Ask_Type||'direct'}</td>
       <td style="font-size:12px">${e(rule.Visual_Signal_TH||'—')}</td>
-      <td style="font-size:12px">${e(rule.Response_Template_TH||'—')}</td>
     </tr>`).join('');
   document.getElementById('save-count').textContent = rules.length;
   showScreen('preview');
