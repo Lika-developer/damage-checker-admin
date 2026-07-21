@@ -496,7 +496,7 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
         สอนงาน Powdy
         <span class="sb-count" id="sb-session-count">·</span>
       </button>
-      <button class="csb-item csb-item--soon" onclick="comingSoon('คลังกฎ')">
+      <button class="csb-item" id="sb-item-library" onclick="openLibrary()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
         คลังกฎ
         <span class="sb-count" id="sb-kb-count">—</span>
@@ -726,7 +726,7 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
           <div style="overflow-x:auto">
             <table class="preview-table">
               <thead><tr>
-                <th>Rule ID</th><th>Decision</th><th>Ask Type</th><th>Visual Signal</th>
+                <th>Rule ID</th><th>ชื่อกฎ (โชว์ใน LINE)</th><th>Decision</th><th>Ask Type</th><th>Visual Signal</th>
               </tr></thead>
               <tbody id="preview-container"></tbody>
             </table>
@@ -825,6 +825,65 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
         </div>
       </div>
 
+      <!-- Screen: Rule Library (คลังกฎ) -->
+      <div id="screen-library" class="screen">
+        <style>
+          #screen-library .lib-filterbar{display:flex;flex-direction:column;gap:9px;margin-bottom:14px}
+          #screen-library .lib-fgroup{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+          #screen-library .lib-flabel{font-size:12px;font-weight:700;color:var(--n600,#5a5560);min-width:78px;flex-shrink:0}
+          #screen-library .lib-chip{border:1px solid var(--n300,#d7d3dd);background:#fff;border-radius:999px;padding:4px 11px;font-size:12.5px;cursor:pointer;color:var(--n600,#5a5560);font-weight:600;white-space:nowrap}
+          #screen-library .lib-chip.active{background:var(--pwd-purple,#4A1E5D);color:#fff;border-color:var(--pwd-purple,#4A1E5D)}
+          #screen-library .lib-list{display:flex;flex-direction:column;gap:8px}
+          #screen-library .lib-item{display:flex;align-items:center;gap:12px;border:1px solid var(--n200,#eae7ef);border-radius:11px;background:#fff;padding:9px 12px;box-shadow:0 1px 2px rgba(30,20,45,.04)}
+          #screen-library .lib-thumb{width:68px;height:52px;flex-shrink:0;border-radius:7px;background:#f4f2f7;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+          #screen-library .lib-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+          #screen-library .lib-thumb .lib-noimg{color:var(--n400,#9a94a3);font-size:18px}
+          #screen-library .lib-imglink{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--pwd-purple,#4A1E5D);font-size:11px;font-weight:700;text-decoration:none;text-align:center;line-height:1.2;padding:2px}
+          #screen-library .lib-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+          #screen-library .lib-line1{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+          #screen-library .lib-id{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--n600,#5a5560)}
+          #screen-library .lib-name{font-size:14px;font-weight:700;color:var(--pwd-purple,#4A1E5D);line-height:1.3}
+          #screen-library .lib-name.lib-unnamed{color:#E65100}
+          #screen-library .lib-meta{font-size:12px;color:var(--n600,#5a5560);line-height:1.4}
+          #screen-library .lib-meta b{color:var(--n700,#3f3a48);font-weight:600}
+          #screen-library .lib-cattag{display:inline-block;font-size:11px;font-weight:600;color:var(--pwd-purple,#4A1E5D);background:#f1ecf6;border-radius:5px;padding:1px 7px}
+          #screen-library .lib-empty{padding:44px 20px;text-align:center;color:var(--n500,#7a7482);font-size:14px}
+          #screen-library .lib-count{font-size:12px;color:var(--n500,#7a7482);margin:2px 0 10px}
+        </style>
+        <div class="cph">
+          <div>
+            <div class="cph-chip">Powdy · Decision Rules</div>
+            <h1>คลังกฎ</h1>
+            <p style="font-size:13px;color:var(--n600);margin-top:4px">กฎทั้งหมดที่น้อง Powdy ใช้ตัดสิน — พร้อมรูปตัวอย่างที่สอนไว้ · อ่านอย่างเดียว (แก้ที่หน้า “สอนงาน Powdy”)</p>
+          </div>
+        </div>
+
+        <div class="lib-filterbar">
+          <div class="lib-fgroup" id="lib-f-dec">
+            <span class="lib-flabel">ผลตัดสิน</span>
+            <button class="lib-chip active" data-dec="ALL" onclick="setLibDec('ALL',this)">ทั้งหมด</button>
+            <button class="lib-chip" data-dec="ACCEPT" onclick="setLibDec('ACCEPT',this)">✅ ACCEPT</button>
+            <button class="lib-chip" data-dec="REJECT" onclick="setLibDec('REJECT',this)">❌ REJECT</button>
+            <button class="lib-chip" data-dec="FOLLOW_UP" onclick="setLibDec('FOLLOW_UP',this)">❓ FOLLOW UP</button>
+          </div>
+          <div class="lib-fgroup" id="lib-f-cat">
+            <span class="lib-flabel">กลุ่มสินค้า</span>
+            <!-- chips injected by JS -->
+          </div>
+          <div class="lib-fgroup" id="lib-f-prefix">
+            <span class="lib-flabel">อักษรนำกฎ</span>
+            <!-- chips injected by JS -->
+          </div>
+          <div class="lib-fgroup">
+            <button class="pbtn pbtn--ghost pbtn--sm" onclick="loadLibrary(true)" style="margin-left:auto">🔄 โหลดใหม่</button>
+          </div>
+        </div>
+
+        <div id="lib-status" class="mnote" style="margin-bottom:8px">⏳ กำลังโหลดกฎ...</div>
+        <div class="lib-count" id="lib-count"></div>
+        <div class="lib-list" id="lib-list"></div>
+      </div>
+
     </div><!-- .cview -->
   </div><!-- .cmain -->
 </div><!-- .app-shell -->
@@ -852,6 +911,7 @@ const ANALYZE_URL      = N8N_BASE + '/liff-rule-analyze';
 const SAVE_URL         = N8N_BASE + '/liff-rule-save';
 const VERIFY_URL       = N8N_BASE + '/liff-verify-admin';
 const GET_RULE_IDS_URL = N8N_BASE + '/liff-get-rule-ids';
+const RULES_LIST_URL   = N8N_BASE + '/liff-rules-list';
 // Powdy v2 — Master Severity Config + Handoff endpoints (backend by Enzo)
 const MASTER_GET_URL   = N8N_BASE + '/liff-master-get';
 const MASTER_SAVE_URL  = N8N_BASE + '/liff-master-save';
@@ -1161,6 +1221,8 @@ function buildExpandedFields(idx) {
   const rule = rules[idx];
   const ai = (f) => (rule._aiFields && rule._aiFields.includes(f)) ? ' ai-filled' : '';
   const mainFields = [
+    { key:'Rule_Name_TH',        label:'📣 ชื่อกฎ (โชว์ใน LINE ตอนตอบ)',      type:'input',
+      ph:'เช่น กล่องฉีกขาดเห็นสินค้าด้านใน' },
     { key:'Category_TH',         label:'หมวดหมู่ความเสียหาย',               type:'input' },
     { key:'Threshold_Note',      label:'เกณฑ์การตัดสิน (เพิ่มเติม)',          type:'textarea' },
   ];
@@ -1174,7 +1236,7 @@ function buildExpandedFields(idx) {
     if (f.type === 'textarea') return `<div class="exp-field"><label>${f.label}</label>
       <textarea class="${cls}" oninput="updateRuleField(${idx},'${f.key}',this.value)">${e(val)}</textarea></div>`;
     return `<div class="exp-field"><label>${f.label}</label>
-      <input type="text" class="${cls}" value="${e(val)}" oninput="updateRuleField(${idx},'${f.key}',this.value)"></div>`;
+      <input type="text" class="${cls}" value="${e(val)}" placeholder="${e(f.ph||'')}" oninput="updateRuleField(${idx},'${f.key}',this.value)"></div>`;
   }).join('');
 
   const askTypeHtml = `<div class="exp-field" style="grid-column:span 2">
@@ -1496,6 +1558,9 @@ function goToPreview() {
   document.getElementById('preview-container').innerHTML = rules.map((rule) => `
     <tr>
       <td><code style="font-size:12px;font-weight:700;font-family:var(--font-mono)">${e(rule.Rule_ID)}</code></td>
+      <td style="font-size:12px">${rule.Rule_Name_TH
+        ? e(rule.Rule_Name_TH)
+        : '<span style="color:#E65100;font-weight:700">⚠️ ยังไม่ตั้งชื่อ</span>'}</td>
       <td><span class="${dc[rule.Decision]||'db-uncertain'}">${rule.Decision}</span>${rule._imageData?' 📷':''}</td>
       <td style="font-size:12px;color:var(--n600)">${atLabel[rule.Ask_Type]||rule.Ask_Type||'direct'}</td>
       <td style="font-size:12px">${e(rule.Visual_Signal_TH||'—')}</td>
@@ -1645,6 +1710,134 @@ function goTrain(){
 function comingSoon(name){
   toggleSidebar(false);
   showToast('🚧 "' + name + '" กำลังพัฒนา — เร็วๆ นี้');
+}
+
+// ===== RULE LIBRARY (คลังกฎ) =====
+let libraryRules = [];
+let libraryLoaded = false;
+let libDec = 'ALL';      // ALL | ACCEPT | REJECT | OTHER
+let libCat = 'ALL';      // ALL | <product_category>
+let libPrefix = 'ALL';   // ALL | <rule-id prefix>
+
+function libDecBucket(dec){
+  const d = String(dec || '');
+  if (d === 'REJECT' || d.indexOf('ไม่รับคืน') >= 0) return 'REJECT';
+  if (d === 'ACCEPT' || d.indexOf('รับคืน') >= 0) return 'ACCEPT';
+  return 'OTHER';
+}
+function libRuleCat(r){ return (r.product_category || r.Category_TH || '').trim() || '—'; }
+function libRulePrefix(r){
+  const id = String(r.Rule_ID || '').trim();
+  if (!id) return '—';
+  return (id.split('-')[0] || id).toUpperCase();
+}
+
+async function openLibrary(){
+  setNav('sb-item-library');
+  toggleSidebar(false);
+  showScreen('library');
+  const bc = document.getElementById('breadcrumb-now');
+  if (bc) bc.textContent = 'คลังกฎ';
+  if (!libraryLoaded) await loadLibrary();
+}
+
+async function loadLibrary(force){
+  const status = document.getElementById('lib-status');
+  if (force) libraryLoaded = false;
+  if (status){ status.textContent = '⏳ กำลังโหลดกฎ...'; status.classList.remove('mwarn'); }
+  try {
+    const resp = await fetch(RULES_LIST_URL, { method:'GET' });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    libraryRules = data.rules || data.items || [];
+    libraryLoaded = true;
+    if (status){
+      status.textContent = `✅ โหลด ${libraryRules.length} กฎแล้ว`;
+      status.classList.remove('mwarn');
+      setTimeout(() => { if (status) status.textContent = ''; }, 2500);
+    }
+    const kb = document.getElementById('sb-kb-count');
+    if (kb) kb.textContent = libraryRules.length;
+  } catch(e){
+    libraryRules = [];
+    if (status){
+      status.classList.add('mwarn');
+      status.innerHTML = '⚠️ ยังเชื่อม backend ไม่ได้ — endpoint <code>/liff-rules-list</code> ยังไม่พร้อม (หน้าพร้อมแล้ว รอต่อ n8n)';
+    }
+  }
+  buildLibFilters();
+  renderLibrary();
+}
+
+// สร้าง chip กลุ่มสินค้า + อักษรนำกฎ แบบ dynamic จากกฎที่โหลดมา
+function buildLibFilters(){
+  const cats = [...new Set(libraryRules.map(libRuleCat))].filter(c => c !== '—').sort();
+  const prefs = [...new Set(libraryRules.map(libRulePrefix))].filter(p => p !== '—').sort();
+  const catBox = document.getElementById('lib-f-cat');
+  const prefBox = document.getElementById('lib-f-prefix');
+  const chip = (val, label, cur, fn) =>
+    `<button class="lib-chip ${val === cur ? 'active' : ''}" onclick="${fn}('${e(val)}',this)">${e(label)}</button>`;
+  if (catBox) catBox.innerHTML = '<span class="lib-flabel">กลุ่มสินค้า</span>'
+    + chip('ALL','ทั้งหมด',libCat,'setLibCat')
+    + cats.map(c => chip(c,c,libCat,'setLibCat')).join('');
+  if (prefBox) prefBox.innerHTML = '<span class="lib-flabel">อักษรนำกฎ</span>'
+    + chip('ALL','ทั้งหมด',libPrefix,'setLibPrefix')
+    + prefs.map(p => chip(p,p,libPrefix,'setLibPrefix')).join('');
+}
+
+function _setActive(groupId, btn){
+  document.querySelectorAll('#' + groupId + ' .lib-chip').forEach(c => c.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+function setLibDec(v, btn){ libDec = (v === 'FOLLOW_UP') ? 'OTHER' : v; _setActive('lib-f-dec', btn); renderLibrary(); }
+function setLibCat(v, btn){ libCat = v; _setActive('lib-f-cat', btn); renderLibrary(); }
+function setLibPrefix(v, btn){ libPrefix = v; _setActive('lib-f-prefix', btn); renderLibrary(); }
+
+function renderLibrary(){
+  const list = document.getElementById('lib-list');
+  const countEl = document.getElementById('lib-count');
+  if (!list) return;
+  const dcMap = { REJECT:'db-reject', ACCEPT:'db-accept' };
+
+  const shown = libraryRules.filter(r =>
+    (libDec === 'ALL' || libDecBucket(r.Decision) === libDec) &&
+    (libCat === 'ALL' || libRuleCat(r) === libCat) &&
+    (libPrefix === 'ALL' || libRulePrefix(r) === libPrefix)
+  );
+
+  if (countEl) countEl.textContent = libraryLoaded
+    ? `แสดง ${shown.length} จาก ${libraryRules.length} กฎ`
+    : '';
+
+  if (shown.length === 0){
+    list.innerHTML = `<div class="lib-empty">${libraryLoaded ? 'ไม่มีกฎที่ตรงกับตัวกรอง' : 'ยังไม่มีข้อมูลกฎ — เชื่อม endpoint แล้วกฎจะแสดงที่นี่'}</div>`;
+    return;
+  }
+
+  list.innerHTML = shown.map(r => {
+    const decCls = dcMap[libDecBucket(r.Decision)] || 'db-uncertain';
+    const img = (r.Ref_Image_URL || '').trim();
+    const cat = libRuleCat(r);
+    const vs  = e(r.Visual_Signal_TH || '—');
+    const nameHtml = r.Rule_Name_TH
+      ? `<span class="lib-name">${e(r.Rule_Name_TH)}</span>`
+      : `<span class="lib-name lib-unnamed">⚠️ ยังไม่ตั้งชื่อกฎ</span>`;
+    const thumb = img
+      ? `<img src="${e(img)}" alt="${e(r.Rule_ID)}" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.lib-imgfallback').style.display='flex';">
+         <a class="lib-imglink lib-imgfallback" href="${e(img)}" target="_blank" rel="noopener" style="display:none">🔗 รูป</a>`
+      : `<div class="lib-noimg">📷</div>`;
+    return `<div class="lib-item">
+      <div class="lib-thumb">${thumb}</div>
+      <div class="lib-main">
+        <div class="lib-line1">
+          <span class="lib-id">${e(r.Rule_ID)}</span>
+          <span class="${decCls}">${e(r.Decision || '—')}</span>
+          ${nameHtml}
+        </div>
+        <div class="lib-meta">👁 ${vs}${cat !== '—' ? ` &nbsp;·&nbsp; <span class="lib-cattag">📦 ${e(cat)}</span>` : ''}</div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 async function openMaster(tab){
