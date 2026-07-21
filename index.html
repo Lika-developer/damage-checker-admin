@@ -87,6 +87,8 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 .csb-item.active svg{color:var(--pwd-purple-bright);opacity:1;}
 .sb-count{margin-left:auto;font-size:11px;font-weight:800;background:rgba(255,255,255,0.14);color:#fff;padding:2px 8px;border-radius:999px;min-width:22px;text-align:center;}
 .csb-item.active .sb-count{background:var(--pwd-orange-soft);color:var(--pwd-orange-deep);}
+.csb-item--soon{opacity:0.5;}
+.csb-item--soon:hover{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.78);}
 .csb-mascot{margin:14px;padding:12px;border-radius:16px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.08);display:flex;align-items:center;gap:11px;flex-shrink:0;margin-top:auto;}
 .csb-mascot .mav{width:42px;height:42px;background:transparent;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;font-size:20px;}
 .csb-mascot .mav img{width:100%;height:100%;object-fit:contain;}
@@ -489,17 +491,17 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 
     <div class="csb-section">Train</div>
     <div class="csb-nav">
-      <button class="csb-item active" id="sb-item-train">
+      <button class="csb-item active" id="sb-item-train" onclick="goTrain()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg>
         สอนงาน Powdy
         <span class="sb-count" id="sb-session-count">·</span>
       </button>
-      <button class="csb-item">
+      <button class="csb-item csb-item--soon" onclick="comingSoon('คลังกฎ')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
         คลังกฎ
         <span class="sb-count" id="sb-kb-count">—</span>
       </button>
-      <button class="csb-item">
+      <button class="csb-item csb-item--soon" onclick="comingSoon('Test bench')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18l-2 9H5z"/><path d="M3 9V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4"/></svg>
         Test bench
       </button>
@@ -507,12 +509,12 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 
     <div class="csb-section">Operate</div>
     <div class="csb-nav">
-      <button class="csb-item">
+      <button class="csb-item csb-item--soon" onclick="comingSoon('Approvals')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
         Approvals
         <span class="sb-count">7</span>
       </button>
-      <button class="csb-item">
+      <button class="csb-item csb-item--soon" onclick="comingSoon('รายงาน')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
         รายงาน
       </button>
@@ -1630,6 +1632,19 @@ function setNav(activeId){
   document.querySelectorAll('.csb-item').forEach(b => b.classList.remove('active'));
   const el = document.getElementById(activeId);
   if (el) el.classList.add('active');
+}
+
+// กลับหน้าสอนงาน Powdy (Train home)
+function goTrain(){
+  setNav('sb-item-train');
+  toggleSidebar(false);
+  showScreen('home');
+}
+
+// ปุ่มฟีเจอร์ที่ยังไม่เปิดใช้งาน
+function comingSoon(name){
+  toggleSidebar(false);
+  showToast('🚧 "' + name + '" กำลังพัฒนา — เร็วๆ นี้');
 }
 
 async function openMaster(tab){
