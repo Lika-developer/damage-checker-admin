@@ -514,9 +514,10 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
         Approvals
         <span class="sb-count">7</span>
       </button>
-      <button class="csb-item csb-item--soon" onclick="comingSoon('รายงาน')">
+      <button class="csb-item" id="sb-item-report" onclick="openReport()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
         รายงาน
+        <span class="sb-count" id="sb-report-count">—</span>
       </button>
     </div>
 
@@ -884,6 +885,67 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
         <div class="lib-list" id="lib-list"></div>
       </div>
 
+      <!-- Screen: Report / Dashboard (รายงาน) -->
+      <div id="screen-report" class="screen">
+        <style>
+          #screen-report .rp-filterbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:14px}
+          #screen-report .rp-chip{border:1px solid var(--n300);background:#fff;border-radius:999px;padding:4px 12px;font-size:12.5px;cursor:pointer;color:var(--n600);font-weight:600;white-space:nowrap}
+          #screen-report .rp-chip.active{background:var(--pwd-purple);color:#fff;border-color:var(--pwd-purple)}
+          #screen-report .rp-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:16px}
+          #screen-report .rp-card{border:1px solid var(--n200);border-radius:13px;background:#fff;padding:13px 14px;box-shadow:0 1px 2px rgba(30,20,45,.04)}
+          #screen-report .rp-card .rp-k{font-size:11.5px;font-weight:700;color:var(--n500);letter-spacing:.02em;display:flex;align-items:center;gap:5px}
+          #screen-report .rp-card .rp-v{font-size:26px;font-weight:800;line-height:1.15;margin-top:5px;font-variant-numeric:tabular-nums;color:var(--n900)}
+          #screen-report .rp-card .rp-sub{font-size:11px;color:var(--n500);margin-top:1px}
+          #screen-report .rp-card.is-rej .rp-v{color:#E23B3B}
+          #screen-report .rp-card.is-acc .rp-v{color:#1F7A3A}
+          #screen-report .rp-card.is-pen .rp-v{color:#8A5500}
+          #screen-report .rp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:14px}
+          #screen-report .rp-panel{border:1px solid var(--n200);border-radius:13px;background:#fff;padding:15px 16px;box-shadow:0 1px 2px rgba(30,20,45,.04);min-width:0}
+          #screen-report .rp-ptitle{font-size:13px;font-weight:800;color:var(--pwd-purple);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+          #screen-report .rp-donutwrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+          #screen-report .rp-donut{flex-shrink:0}
+          #screen-report .rp-donut-center{font-size:22px;font-weight:800;fill:var(--n900);font-variant-numeric:tabular-nums}
+          #screen-report .rp-donut-sub{font-size:9px;font-weight:600;fill:var(--n500)}
+          #screen-report .rp-legend{display:flex;flex-direction:column;gap:6px;font-size:12.5px;min-width:120px}
+          #screen-report .rp-legrow{display:flex;align-items:center;gap:8px;color:var(--n700)}
+          #screen-report .rp-dot{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+          #screen-report .rp-legrow b{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--n900)}
+          #screen-report .rp-bars{display:flex;flex-direction:column;gap:9px}
+          #screen-report .rp-bar{display:grid;grid-template-columns:96px 1fr 42px;align-items:center;gap:9px;font-size:12.5px}
+          #screen-report .rp-bar .rp-blabel{color:var(--n700);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+          #screen-report .rp-bar .rp-btrack{background:var(--n100);border-radius:5px;height:15px;overflow:hidden}
+          #screen-report .rp-bar .rp-bfill{height:100%;border-radius:5px;background:var(--pwd-purple-bright);min-width:2px;transition:width .4s}
+          #screen-report .rp-bar .rp-bval{text-align:right;font-weight:700;color:var(--n800);font-variant-numeric:tabular-nums}
+          #screen-report .rp-tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+          #screen-report .rp-tbl th{text-align:left;font-size:11px;color:var(--n500);font-weight:700;padding:5px 7px;border-bottom:1px solid var(--n200);white-space:nowrap}
+          #screen-report .rp-tbl td{padding:6px 7px;border-bottom:1px solid var(--n100);color:var(--n700);vertical-align:top}
+          #screen-report .rp-tbl tr:last-child td{border-bottom:none}
+          #screen-report .rp-tbl .rp-mono{font-family:var(--font-mono);font-size:11px;color:var(--n600);white-space:nowrap}
+          #screen-report .rp-scroll{overflow-x:auto}
+          #screen-report .rp-empty{padding:40px 20px;text-align:center;color:var(--n500);font-size:14px}
+          #screen-report .rp-pill{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10.5px;font-weight:700;font-family:var(--font-mono);color:#fff}
+        </style>
+        <div class="cph">
+          <div>
+            <div class="cph-chip">Powdy · Operations</div>
+            <h1>รายงาน</h1>
+            <p style="font-size:13px;color:var(--n600);margin-top:4px">สรุปผลการตัดสินของน้อง Powdy จาก Decision_Log — เคสทั้งหมด ผลตัดสิน แนวโน้ม สาขา และกฎที่ยิงบ่อย · อ่านอย่างเดียว</p>
+          </div>
+        </div>
+
+        <div class="rp-filterbar" id="rp-f-range">
+          <span class="lib-flabel" style="min-width:auto;margin-right:2px">ช่วงเวลา</span>
+          <button class="rp-chip active" data-r="ALL" onclick="setRpRange('ALL',this)">ทั้งหมด</button>
+          <button class="rp-chip" data-r="30" onclick="setRpRange('30',this)">30 วันล่าสุด</button>
+          <button class="rp-chip" data-r="7" onclick="setRpRange('7',this)">7 วันล่าสุด</button>
+          <button class="rp-chip" data-r="DAY" onclick="setRpRange('DAY',this)">วันล่าสุด</button>
+          <button class="pbtn pbtn--ghost pbtn--sm" onclick="loadReport(true)" style="margin-left:auto">🔄 โหลดใหม่</button>
+        </div>
+
+        <div id="rp-status" class="mnote" style="margin-bottom:10px">⏳ กำลังโหลดข้อมูล...</div>
+        <div id="rp-body"></div>
+      </div>
+
     </div><!-- .cview -->
   </div><!-- .cmain -->
 </div><!-- .app-shell -->
@@ -912,6 +974,7 @@ const SAVE_URL         = N8N_BASE + '/liff-rule-save';
 const VERIFY_URL       = N8N_BASE + '/liff-verify-admin';
 const GET_RULE_IDS_URL = N8N_BASE + '/liff-get-rule-ids';
 const RULES_LIST_URL   = N8N_BASE + '/liff-rules-list';
+const REPORT_URL       = N8N_BASE + '/liff-report';
 // Powdy v2 — Master Severity Config + Handoff endpoints (backend by Enzo)
 const MASTER_GET_URL   = N8N_BASE + '/liff-master-get';
 const MASTER_SAVE_URL  = N8N_BASE + '/liff-master-save';
@@ -1838,6 +1901,226 @@ function renderLibrary(){
       </div>
     </div>`;
   }).join('');
+}
+
+// ===== REPORT / DASHBOARD (รายงาน) =====
+let reportRows = [];
+let reportLoaded = false;
+let rpRange = 'ALL';   // ALL | 30 | 7 | DAY
+
+const RP_RESULT_META = {
+  ACCEPT:        { label:'รับกลับได้',  color:'#1F7A3A' },
+  REJECT:        { label:'รับกลับไม่ได้', color:'#E23B3B' },
+  PENDING:       { label:'รอพิจารณา',   color:'#8A5500' },
+  FOLLOW_UP:     { label:'สอบถามเพิ่ม', color:'#5B2FA0' },
+  SERVICE_ERROR: { label:'ระบบขัดข้อง', color:'#756E84' },
+  NEED_NEW_IMAGE:{ label:'ขอรูปใหม่',   color:'#9C95AB' }
+};
+const RP_RESULT_ORDER = ['ACCEPT','REJECT','PENDING','FOLLOW_UP','SERVICE_ERROR','NEED_NEW_IMAGE'];
+const RP_SEV_META = {
+  Minor:    { label:'เล็กน้อย (Minor)',  color:'#1F7A3A' },
+  Moderate: { label:'ปานกลาง (Moderate)', color:'#8A5500' },
+  Severe:   { label:'รุนแรง (Severe)',    color:'#E23B3B' }
+};
+function rpResMeta(res){ return RP_RESULT_META[res] || { label: res || 'อื่นๆ', color:'#9C95AB' }; }
+
+async function openReport(){
+  setNav('sb-item-report');
+  toggleSidebar(false);
+  showScreen('report');
+  const bc = document.getElementById('breadcrumb-now');
+  if (bc) bc.textContent = 'รายงาน';
+  if (!reportLoaded) await loadReport();
+}
+
+async function loadReport(force){
+  const status = document.getElementById('rp-status');
+  if (force) reportLoaded = false;
+  if (status){ status.textContent = '⏳ กำลังโหลดข้อมูล...'; status.classList.remove('mwarn'); }
+  try {
+    const resp = await fetch(REPORT_URL, { method:'GET' });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    reportRows = data.rows || data.items || [];
+    reportLoaded = true;
+    if (status){
+      status.textContent = `✅ โหลด ${reportRows.length} เคสแล้ว`;
+      status.classList.remove('mwarn');
+      setTimeout(() => { if (status) status.textContent = ''; }, 2500);
+    }
+    const c = document.getElementById('sb-report-count');
+    if (c) c.textContent = reportRows.length;
+  } catch(e){
+    reportRows = [];
+    if (status){
+      status.classList.add('mwarn');
+      status.innerHTML = '⚠️ ยังเชื่อม backend ไม่ได้ — endpoint <code>/liff-report</code> ยังไม่พร้อม';
+    }
+  }
+  renderReport();
+}
+
+function setRpRange(v, btn){
+  rpRange = v;
+  document.querySelectorAll('#rp-f-range .rp-chip').forEach(c => c.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderReport();
+}
+
+function rpTs(r){ const t = Date.parse(r.timestamp || ''); return isNaN(t) ? 0 : t; }
+function rpYmd(r){ return String(r.timestamp || '').slice(0,10); }
+
+function rpFilteredRows(){
+  const rows = reportRows.filter(r => (r.case_id || '').toString().trim() !== '');
+  if (rpRange === 'ALL' || rows.length === 0) return rows;
+  const anchor = Math.max(...rows.map(rpTs));
+  if (rpRange === 'DAY'){
+    const day = new Date(anchor).toISOString().slice(0,10);
+    return rows.filter(r => rpYmd(r) === day);
+  }
+  const span = Number(rpRange) * 86400000;
+  return rows.filter(r => rpTs(r) >= anchor - span);
+}
+
+function rpCount(rows, keyFn){
+  const m = new Map();
+  rows.forEach(r => { const k = keyFn(r); m.set(k, (m.get(k) || 0) + 1); });
+  return m;
+}
+function rpFmtDay(ymd){ const p = ymd.split('-'); return p.length === 3 ? p[2] + '/' + p[1] : ymd; }
+function rpFmtDateTime(ts){
+  const d = new Date(ts); if (isNaN(d)) return '—';
+  const p = n => String(n).padStart(2,'0');
+  return `${p(d.getDate())}/${p(d.getMonth()+1)} ${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+
+function rpBar(label, val, max, color, title){
+  const pct = max > 0 ? Math.round(val / max * 100) : 0;
+  return `<div class="rp-bar"><span class="rp-blabel" title="${e(title||label)}">${e(label)}</span>`
+    + `<div class="rp-btrack"><div class="rp-bfill" style="width:${pct}%;background:${color}"></div></div>`
+    + `<span class="rp-bval">${val}</span></div>`;
+}
+
+function rpDonut(segments, total){
+  const C = 339.292; let acc = 0;
+  const arcs = segments.filter(s => s.val > 0).map(s => {
+    const len = total > 0 ? s.val / total * C : 0;
+    const arc = `<circle r="54" cx="60" cy="60" fill="none" stroke="${s.color}" stroke-width="15"`
+      + ` stroke-dasharray="${len.toFixed(2)} ${(C-len).toFixed(2)}" stroke-dashoffset="${(-acc).toFixed(2)}"`
+      + ` transform="rotate(-90 60 60)"/>`;
+    acc += len; return arc;
+  }).join('');
+  return `<svg class="rp-donut" width="120" height="120" viewBox="0 0 120 120">`
+    + `<circle r="54" cx="60" cy="60" fill="none" stroke="var(--n100)" stroke-width="15"/>`
+    + arcs
+    + `<text x="60" y="58" text-anchor="middle" class="rp-donut-center">${total}</text>`
+    + `<text x="60" y="73" text-anchor="middle" class="rp-donut-sub">เคสทั้งหมด</text>`
+    + `</svg>`;
+}
+
+function renderReport(){
+  const body = document.getElementById('rp-body');
+  if (!body) return;
+  if (!reportLoaded){
+    body.innerHTML = `<div class="rp-empty">ยังไม่มีข้อมูล — เชื่อม endpoint แล้วรายงานจะแสดงที่นี่</div>`;
+    return;
+  }
+  const rows = rpFilteredRows();
+  if (rows.length === 0){
+    body.innerHTML = `<div class="rp-empty">ไม่มีเคสในช่วงเวลาที่เลือก</div>`;
+    return;
+  }
+
+  // --- aggregate ---
+  const total = rows.length;
+  const resM = rpCount(rows, r => (r.result || '').trim() || 'อื่นๆ');
+  const nAcc = resM.get('ACCEPT') || 0;
+  const nRej = resM.get('REJECT') || 0;
+  const nPen = resM.get('PENDING') || 0;
+  const nErr = (resM.get('SERVICE_ERROR') || 0) + (resM.get('NEED_NEW_IMAGE') || 0);
+  const rejRate = total > 0 ? Math.round(nRej / total * 100) : 0;
+
+  // --- stat cards ---
+  const cards = `<div class="rp-cards">
+    <div class="rp-card"><div class="rp-k">📊 เคสทั้งหมด</div><div class="rp-v">${total}</div><div class="rp-sub">${nErr} ระบบขัดข้อง/ขอรูปใหม่</div></div>
+    <div class="rp-card is-acc"><div class="rp-k">✅ รับกลับได้</div><div class="rp-v">${nAcc}</div><div class="rp-sub">${total?Math.round(nAcc/total*100):0}% ของทั้งหมด</div></div>
+    <div class="rp-card is-rej"><div class="rp-k">❌ รับกลับไม่ได้</div><div class="rp-v">${nRej}</div><div class="rp-sub">${rejRate}% ของทั้งหมด</div></div>
+    <div class="rp-card is-pen"><div class="rp-k">⏳ รอพิจารณา</div><div class="rp-v">${nPen}</div><div class="rp-sub">${total?Math.round(nPen/total*100):0}% ของทั้งหมด</div></div>
+  </div>`;
+
+  // --- donut: result breakdown ---
+  const seenRes = [...RP_RESULT_ORDER.filter(k => resM.has(k)), ...[...resM.keys()].filter(k => RP_RESULT_ORDER.indexOf(k) < 0)];
+  const donutSegs = seenRes.map(k => ({ val: resM.get(k), color: rpResMeta(k).color }));
+  const legend = seenRes.map(k => {
+    const m = rpResMeta(k);
+    return `<div class="rp-legrow"><span class="rp-dot" style="background:${m.color}"></span>${e(m.label)}<b>${resM.get(k)}</b></div>`;
+  }).join('');
+  const panelResult = `<div class="rp-panel">
+    <div class="rp-ptitle">🎯 ผลการตัดสิน</div>
+    <div class="rp-donutwrap">${rpDonut(donutSegs, total)}<div class="rp-legend">${legend}</div></div>
+  </div>`;
+
+  // --- bars: per day ---
+  const dayM = rpCount(rows, rpYmd);
+  const days = [...dayM.keys()].filter(Boolean).sort();
+  const dayMax = Math.max(...days.map(d => dayM.get(d)), 1);
+  const panelDays = `<div class="rp-panel">
+    <div class="rp-ptitle">📅 เคสต่อวัน (${days.length} วันที่มีเคส)</div>
+    <div class="rp-bars">${days.map(d => rpBar(rpFmtDay(d), dayM.get(d), dayMax, 'var(--pwd-purple-bright)', d)).join('')}</div>
+  </div>`;
+
+  // --- bars: by branch ---
+  const brM = rpCount(rows, r => (r.from_branch || '').trim() || 'ไม่ระบุสาขา');
+  const brArr = [...brM.entries()].sort((a,b) => b[1]-a[1]);
+  const brMax = Math.max(...brArr.map(x => x[1]), 1);
+  const panelBranch = `<div class="rp-panel">
+    <div class="rp-ptitle">🏢 แยกตามสาขา</div>
+    <div class="rp-bars">${brArr.map(([k,v]) => rpBar(k, v, brMax, 'var(--pwd-purple)', k)).join('')}</div>
+  </div>`;
+
+  // --- bars: by severity_level ---
+  const sevM = rpCount(rows, r => { const v = String(r.severity_level||'').trim(); return (v===''||v==='null') ? 'ไม่ระบุ' : v; });
+  const sevOrder = ['Minor','Moderate','Severe','ไม่ระบุ'].filter(k => sevM.has(k));
+  const sevMax = Math.max(...[...sevM.values()], 1);
+  const panelSev = `<div class="rp-panel">
+    <div class="rp-ptitle">🔥 ระดับความรุนแรง</div>
+    <div class="rp-bars">${sevOrder.map(k => {
+      const meta = RP_SEV_META[k] || { label:k, color:'#9C95AB' };
+      return rpBar(meta.label, sevM.get(k), sevMax, meta.color, meta.label);
+    }).join('')}</div>
+  </div>`;
+
+  // --- table: top rules ---
+  const ruleM = rpCount(rows, r => (r.rule_id || '').trim() || '(ไม่มีกฎ)');
+  const rulesArr = [...ruleM.entries()].sort((a,b) => b[1]-a[1]).slice(0,10);
+  const panelRules = `<div class="rp-panel">
+    <div class="rp-ptitle">📋 กฎที่ยิงบ่อยสุด (Top 10)</div>
+    <div class="rp-scroll"><table class="rp-tbl"><thead><tr><th>รหัสกฎ</th><th style="text-align:right">จำนวน</th><th style="text-align:right">สัดส่วน</th></tr></thead><tbody>
+      ${rulesArr.map(([k,v]) => `<tr><td class="rp-mono">${e(k)}</td><td style="text-align:right;font-weight:700">${v}</td><td style="text-align:right;color:var(--n500)">${Math.round(v/total*100)}%</td></tr>`).join('')}
+    </tbody></table></div>
+  </div>`;
+
+  // --- table: recent cases ---
+  const recent = [...rows].sort((a,b) => rpTs(b) - rpTs(a)).slice(0,20);
+  const panelRecent = `<div class="rp-panel" style="grid-column:1/-1">
+    <div class="rp-ptitle">🕐 เคสล่าสุด 20 รายการ</div>
+    <div class="rp-scroll"><table class="rp-tbl"><thead><tr><th>เวลา</th><th>หมายเลขเคส</th><th>ผล</th><th>สาขา</th><th>กฎ</th></tr></thead><tbody>
+      ${recent.map(r => {
+        const m = rpResMeta((r.result||'').trim());
+        return `<tr>
+          <td class="rp-mono">${rpFmtDateTime(rpTs(r))}</td>
+          <td class="rp-mono">${e(r.case_id||'—')}</td>
+          <td><span class="rp-pill" style="background:${m.color}">${e((r.result||'—').trim()||'—')}</span></td>
+          <td>${e((r.from_branch||'—').trim()||'—')}</td>
+          <td class="rp-mono">${e((r.rule_id||'—').trim()||'—')}</td>
+        </tr>`;
+      }).join('')}
+    </tbody></table></div>
+  </div>`;
+
+  body.innerHTML = cards + `<div class="rp-grid">`
+    + panelResult + panelDays + panelBranch + panelSev + panelRules
+    + `</div>` + `<div class="rp-grid">` + panelRecent + `</div>`;
 }
 
 async function openMaster(tab){
