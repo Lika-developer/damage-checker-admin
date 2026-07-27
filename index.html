@@ -509,10 +509,10 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 
     <div class="csb-section">Operate</div>
     <div class="csb-nav">
-      <button class="csb-item csb-item--soon" onclick="comingSoon('Approvals')">
+      <button class="csb-item" id="sb-item-approvals" onclick="openApprovals()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
         Approvals
-        <span class="sb-count">7</span>
+        <span class="sb-count" id="sb-approval-count">—</span>
       </button>
       <button class="csb-item" id="sb-item-report" onclick="openReport()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
@@ -944,6 +944,53 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 
         <div id="rp-status" class="mnote" style="margin-bottom:10px">⏳ กำลังโหลดข้อมูล...</div>
         <div id="rp-body"></div>
+      </div>
+
+      <!-- ===== SCREEN: APPROVALS (เคสรอพิจารณา PENDING) ===== -->
+      <div id="screen-approvals" class="screen">
+        <style>
+          #screen-approvals .ap-list{display:flex;flex-direction:column;gap:10px}
+          #screen-approvals .ap-card{border:1px solid var(--n200);border-radius:13px;background:#fff;padding:13px 14px;box-shadow:0 1px 2px rgba(30,20,45,.04)}
+          #screen-approvals .ap-l1{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:6px}
+          #screen-approvals .ap-id{font-family:var(--font-mono);font-size:11.5px;font-weight:700;color:var(--n700)}
+          #screen-approvals .ap-branch{font-size:12px;font-weight:700;color:var(--pwd-purple);background:#f1ecf6;border-radius:5px;padding:1px 8px}
+          #screen-approvals .ap-sev{font-size:10.5px;font-weight:700;color:#fff;border-radius:4px;padding:2px 7px;background:#8A5500}
+          #screen-approvals .ap-time{font-size:11px;color:var(--n500);margin-left:auto;white-space:nowrap}
+          #screen-approvals .ap-rule{font-size:12px;color:var(--n600);margin-bottom:4px}
+          #screen-approvals .ap-rule b{color:var(--n700)}
+          #screen-approvals .ap-sum{font-size:13px;color:var(--n800);line-height:1.5;margin-bottom:9px}
+          #screen-approvals .ap-acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+          #screen-approvals .ap-resolve{margin-top:11px;padding-top:11px;border-top:1px dashed var(--n200);display:none}
+          #screen-approvals .ap-resolve.open{display:block}
+          #screen-approvals .ap-frow{display:flex;flex-direction:column;gap:4px;margin-bottom:9px}
+          #screen-approvals .ap-flabel{font-size:12px;font-weight:700;color:var(--n600)}
+          #screen-approvals .ap-sel,#screen-approvals .ap-note{width:100%;border:1px solid var(--n300);border-radius:9px;padding:8px 10px;font-size:13px;font-family:inherit;box-sizing:border-box}
+          #screen-approvals .ap-note{min-height:58px;resize:vertical}
+          #screen-approvals .ap-empty{padding:44px 20px;text-align:center;color:var(--n500);font-size:14px}
+          #screen-approvals .ap-photo{font-size:12px;font-weight:700;color:var(--pwd-purple);text-decoration:none}
+          #screen-approvals .ap-src{font-size:10.5px;font-weight:800;border-radius:4px;padding:2px 7px;letter-spacing:.2px}
+          #screen-approvals .ap-src--ai{background:#ede7f4;color:#4A1E5D}
+          #screen-approvals .ap-src--contact{background:#ffe8d4;color:#8a3d00}
+          #screen-approvals .ap-card--contact{border-left:3px solid #F27100}
+          #screen-approvals .ap-quote{font-size:13px;color:var(--n800);line-height:1.5;margin-bottom:9px;padding:8px 11px;background:#faf7fc;border-left:3px solid var(--n300);border-radius:0 8px 8px 0}
+          #screen-approvals .rp-chip b{font-weight:800;margin-left:3px}
+        </style>
+        <div class="cph">
+          <div>
+            <div class="cph-chip">Powdy · Operations</div>
+            <h1>Approvals — งานที่ต้องทำ</h1>
+            <p style="font-size:13px;color:var(--n600);margin-top:4px">รวมทุกงานที่รอแอดมิน — เคสที่น้อง Powdy ตัดสินเองไม่ได้ และคนที่พิมพ์ขอติดต่อแอดมิน · คุยผ่าน LINE แล้วมาร์คปิดที่นี่</p>
+          </div>
+        </div>
+        <div class="rp-filterbar">
+          <span class="lib-flabel" style="min-width:auto;margin-right:2px">แสดง</span>
+          <button class="rp-chip active" id="ap-f-all"     onclick="setApFilter('all')">ทั้งหมด <b id="ap-n-all">—</b></button>
+          <button class="rp-chip"        id="ap-f-ai"      onclick="setApFilter('ai_pending')">🤖 AI ตัดสินไม่ได้ <b id="ap-n-ai">—</b></button>
+          <button class="rp-chip"        id="ap-f-contact" onclick="setApFilter('user_contact')">🙋 ขอติดต่อแอดมิน <b id="ap-n-contact">—</b></button>
+          <button class="pbtn pbtn--ghost pbtn--sm" onclick="loadApprovals(true)" style="margin-left:auto">🔄 โหลดใหม่</button>
+        </div>
+        <div id="ap-status" class="mnote" style="margin-bottom:10px">⏳ กำลังโหลดข้อมูล...</div>
+        <div id="ap-body"></div>
       </div>
 
     </div><!-- .cview -->
@@ -2413,6 +2460,210 @@ function loadDraft() {
 
 function clearDraft() {
   try { localStorage.removeItem(DRAFT_KEY); } catch(e) {}
+}
+
+// ===== APPROVALS — คิวรวม (AI ตัดสินไม่ได้ + ขอติดต่อแอดมิน) =====
+// อ่านจาก Admin_Queue tab (single source of truth) ผ่าน n8n
+const QUEUE_LIST_URL    = N8N_BASE + '/liff-admin-queue';
+const QUEUE_RESOLVE_URL = N8N_BASE + '/liff-admin-resolve';
+// LINE OA chat deep-link — chat_id ใช้ line_user_id (⚠️ รอ verify ว่า chat_id == line_user_id)
+const OA_CHAT_BASE = 'https://chat.line.biz/U7fc878ccc4fac373726189cd6f713361/chat/';
+let approvalsCases = [];   // ทุกงานที่ status=open
+let approvalsLoaded = false;
+let apFilter = 'all';      // all | ai_pending | user_contact
+let apLoadFailed = false;  // โหลดไม่สำเร็จ — ห้ามขึ้นข้อความ "เคลียร์หมดแล้ว" หลอกแอดมิน
+
+async function openApprovals(){
+  toggleSidebar(false);
+  showScreen('approvals');
+  setNav('sb-item-approvals'); // หลัง showScreen เพราะ showScreen บังคับ setNav('sb-item-train')
+  const bc = document.getElementById('breadcrumb-now');
+  if (bc) bc.textContent = 'Approvals';
+  if (!approvalsLoaded) await loadApprovals();
+}
+
+async function loadApprovals(force){
+  const status = document.getElementById('ap-status');
+  if (force) approvalsLoaded = false;
+  if (status){ status.style.display = ''; status.textContent = '⏳ กำลังโหลดคิว...'; status.classList.remove('mwarn'); }
+  try {
+    const resp = await fetch(QUEUE_LIST_URL, { method:'GET' });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    // เรียงใหม่สุดขึ้นก่อน
+    approvalsCases = (data.rows || []).slice().sort(function(a,b){
+      return String(b.created_at||'').localeCompare(String(a.created_at||''));
+    });
+    approvalsLoaded = true;
+    apLoadFailed = false;
+    if (status){ status.textContent = ''; status.style.display = 'none'; }
+    renderApprovals();
+  } catch(e){
+    approvalsCases = [];
+    apLoadFailed = true;
+    if (status){
+      status.style.display = '';
+      status.classList.add('mwarn');
+      status.innerHTML = '⚠️ โหลดคิวไม่ได้ (' + apEsc(e.message) + ') — endpoint <code>/liff-admin-queue</code> ไม่ตอบ';
+    }
+    renderApprovals();
+  }
+}
+
+function setApFilter(f){
+  apFilter = f;
+  ['all','ai','contact'].forEach(function(k){
+    const el = document.getElementById('ap-f-'+k);
+    if (el) el.classList.remove('active');
+  });
+  const map = { all:'ap-f-all', ai_pending:'ap-f-ai', user_contact:'ap-f-contact' };
+  const on = document.getElementById(map[f]);
+  if (on) on.classList.add('active');
+  renderApprovals();
+}
+
+function apEsc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function apFmtTime(t){
+  const s = String(t||'').trim();
+  if (!s) return '';
+  const d = new Date(s);
+  if (isNaN(d.getTime())) return s;
+  return d.toLocaleString('th-TH',{ day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' });
+}
+
+function renderApprovals(){
+  const body = document.getElementById('ap-body');
+  const nav  = document.getElementById('sb-approval-count');
+
+  // นับแยกตาม source (นับจากทั้งหมดเสมอ ไม่ใช่จากที่กรองแล้ว)
+  const nAll     = approvalsCases.length;
+  const nAi      = approvalsCases.filter(function(r){ return r.source === 'ai_pending'; }).length;
+  const nContact = approvalsCases.filter(function(r){ return r.source === 'user_contact'; }).length;
+  const setTxt = function(id,v){ const el = document.getElementById(id); if (el) el.textContent = v; };
+  setTxt('ap-n-all', nAll); setTxt('ap-n-ai', nAi); setTxt('ap-n-contact', nContact);
+  if (nav) nav.textContent = nAll;
+
+  // เก็บ index จริงของ approvalsCases ไว้ เพื่อให้ปุ่มอ้างถูกตัวแม้กรองอยู่
+  const view = [];
+  approvalsCases.forEach(function(r,i){
+    if (apFilter === 'all' || r.source === apFilter) view.push({ r:r, i:i });
+  });
+
+  if (!view.length){
+    var emptyMsg;
+    if (apLoadFailed)   emptyMsg = '⚠️ ยังไม่ทราบว่ามีงานค้างหรือไม่ — โหลดข้อมูลไม่สำเร็จ กด "🔄 โหลดใหม่" อีกครั้ง';
+    else if (nAll)      emptyMsg = '📭 ไม่มีงานในหมวดนี้ — ลองเลือก "ทั้งหมด"';
+    else                emptyMsg = '🎉 ไม่มีงานค้าง — เคลียร์หมดแล้ว';
+    body.innerHTML = '<div class="ap-empty">' + emptyMsg + '</div>';
+    return;
+  }
+
+  body.innerHTML = '<div class="ap-list">' + view.map(function(v){
+    const r = v.r, i = v.i;
+    const isContact = (r.source === 'user_contact');
+    const tid    = apEsc(r.task_id);
+    const branch = apEsc(r.from_branch || '—');
+    const cat    = apEsc(r.product_category || '');
+    const time   = apEsc(apFmtTime(r.created_at));
+    const uid    = String(r.line_user_id||'').trim();
+    const who    = apEsc(r.display_name || '');
+
+    const srcChip = isContact
+      ? '<span class="ap-src ap-src--contact">🙋 ขอติดต่อ</span>'
+      : '<span class="ap-src ap-src--ai">🤖 AI ตัดสินไม่ได้</span>';
+    // severity/rule/รูป มีเฉพาะเคสจาก AI
+    const sev   = (!isContact && r.severity_label) ? '<span class="ap-sev">'+apEsc(r.severity_label)+'</span>' : '';
+    const rule  = (!isContact && r.rule_id) ? '<div class="ap-rule">กฎ: <b>'+apEsc(r.rule_id)+'</b></div>' : '';
+    const photo = r.photo_drive_url
+      ? '<a class="ap-photo" href="'+apEsc(r.photo_drive_url)+'" target="_blank" rel="noopener">🖼️ ดูรูป</a>'
+      : '';
+
+    // เคสติดต่อ = โชว์ข้อความที่ user พิมพ์มาจริง / เคส AI = สรุปสิ่งที่เห็นในรูป
+    const txt = String(r.context_summary || '').trim();
+    const sum = isContact
+      ? '<div class="ap-quote">' + (txt ? '“'+apEsc(txt)+'”' : '<i>(ไม่มีข้อความ)</i>') + '</div>'
+      : '<div class="ap-sum">' + apEsc(txt || '(ไม่มีรายละเอียด)') + '</div>';
+
+    const chatBtn = uid
+      ? '<a class="pbtn pbtn--ghost pbtn--sm" href="'+OA_CHAT_BASE+encodeURIComponent(uid)+'" target="_blank" rel="noopener">💬 คุยใน LINE</a>'
+      : '<span class="pbtn pbtn--ghost pbtn--sm" style="opacity:.5;cursor:not-allowed">💬 ไม่มี user id</span>';
+
+    // ค่าเริ่มต้นของผลสรุป: เคสติดต่อมักจบด้วย "คุยแล้ว"
+    const opts = isContact
+      ? '<option value="contacted">คุยกับผู้ส่งแล้ว (contacted)</option>'
+        + '<option value="accept">รับกลับได้ (accept)</option>'
+        + '<option value="reject">รับกลับไม่ได้ (reject)</option>'
+        + '<option value="other">อื่นๆ (other)</option>'
+      : '<option value="accept">รับกลับได้ (accept)</option>'
+        + '<option value="reject">รับกลับไม่ได้ (reject)</option>'
+        + '<option value="contacted">คุยกับผู้ส่งแล้ว (contacted)</option>'
+        + '<option value="other">อื่นๆ (other)</option>';
+
+    return '' +
+    '<div class="ap-card' + (isContact?' ap-card--contact':'') + '" id="ap-card-'+i+'">' +
+      '<div class="ap-l1">' +
+        srcChip +
+        '<span class="ap-id">'+tid+'</span>' +
+        '<span class="ap-branch">'+branch+(cat?(' · '+cat):'')+'</span>' +
+        sev +
+        (time?'<span class="ap-time">'+time+'</span>':'') +
+      '</div>' +
+      (who?'<div class="ap-rule">ผู้ส่ง: <b>'+who+'</b></div>':'') +
+      rule +
+      sum +
+      '<div class="ap-acts">' +
+        chatBtn +
+        photo +
+        '<button class="pbtn pbtn--sm" onclick="toggleResolve('+i+')" style="margin-left:auto">✅ ปิดงาน</button>' +
+      '</div>' +
+      '<div class="ap-resolve" id="ap-resolve-'+i+'">' +
+        '<div class="ap-frow">' +
+          '<label class="ap-flabel">ผลสรุป</label>' +
+          '<select class="ap-sel" id="ap-dec-'+i+'">' + opts + '</select>' +
+        '</div>' +
+        '<div class="ap-frow">' +
+          '<label class="ap-flabel">บันทึกของแอดมิน</label>' +
+          '<textarea class="ap-note" id="ap-note-'+i+'" placeholder="เช่น คุยกับสาขาแล้ว ตกลงรับกลับ..."></textarea>' +
+        '</div>' +
+        '<button class="pbtn pbtn--sm" onclick="submitResolve('+i+')">บันทึกปิดงาน</button>' +
+      '</div>' +
+    '</div>';
+  }).join('') + '</div>';
+}
+
+function toggleResolve(i){
+  const el = document.getElementById('ap-resolve-'+i);
+  if (el) el.classList.toggle('open');
+}
+
+async function submitResolve(i){
+  const r = approvalsCases[i];
+  if (!r) return;
+  const dec  = document.getElementById('ap-dec-'+i).value;
+  const note = document.getElementById('ap-note-'+i).value.trim();
+  showLoading('กำลังปิดงาน...');
+  try {
+    const resp = await fetch(QUEUE_RESOLVE_URL, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        task_id: r.task_id,
+        resolved_by: (adminName||'admin') + (adminLineId?(' ('+adminLineId+')'):''),
+        outcome: dec,
+        admin_note: note
+      })
+    });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    if (!data.ok) throw new Error(data.error || 'resolve failed');
+    hideLoading();
+    approvalsCases.splice(i,1);
+    renderApprovals();
+    showToast('✅ ปิดงาน ' + r.task_id + ' แล้ว');
+  } catch(e){
+    hideLoading();
+    showToast('❌ ปิดงานไม่ได้: ' + e.message);
+  }
 }
 
 // ===== UTILS =====
