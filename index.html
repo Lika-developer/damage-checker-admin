@@ -792,7 +792,9 @@ body{font-family:var(--font-sans);font-size:14px;color:var(--n900);background:va
 
         <!-- Tab: Levels -->
         <div id="mpane-levels" class="mpane">
-          <div class="mnote">เส้นแบ่งคะแนน 0–100 เป็นระดับ L1–L5 · ต้อง<b>ต่อเนื่อง ไม่ทับ ไม่ขาด</b></div>
+          <div class="mnote">เส้นแบ่งคะแนน 0–100 เป็นระดับ L1–L5 · ต้อง<b>ต่อเนื่อง ไม่ทับ ไม่ขาด</b><br>
+            คำตัดสิน: <b>accept</b> = รับกลับได้ทันที · <b>followup</b> = ถามข้อมูลเพิ่ม · <b>reject</b> = รับกลับไม่ได้ · <b>pending</b> = ส่งให้แอดมินพิจารณา<br>
+            <span style="opacity:.75">ค่าที่ตั้งตรงนี้คือค่าที่ระบบใช้จริง — ไม่มีเพดานซ่อนอยู่ในโค้ดแล้ว</span></div>
           <div id="levels-table"></div>
           <div id="levels-warn" class="mwarn" style="display:none"></div>
           <div class="msave-bar">
@@ -1793,7 +1795,7 @@ const MASTER_DEFAULT = {
   ],
   levels: [
     { level:'L1', score_min:0,  score_max:20,  decision:'accept' },
-    { level:'L2', score_min:21, score_max:40,  decision:'accept' },
+    { level:'L2', score_min:21, score_max:40,  decision:'pending' },
     { level:'L3', score_min:41, score_max:60,  decision:'followup' },
     { level:'L4', score_min:61, score_max:80,  decision:'reject' },
     { level:'L5', score_min:81, score_max:100, decision:'reject' }
@@ -2249,7 +2251,7 @@ function recalcSum(gi){
 
 function renderLevels(){
   const wrap = document.getElementById('levels-table');
-  const opts = ['accept','followup','reject'];
+  const opts = ['accept','followup','reject','pending'];
   wrap.innerHTML = masterData.levels.map((lv, li) =>
     `<div class="lvl-row">
        <span class="lvl-tag">${lv.level}</span>
